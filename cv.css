@@ -1,0 +1,10 @@
+body {
+
+	display: grid;
+	grid-template-columns: 25% 75%;
+}
+
+#photo img {
+
+	width: 100%;
+}
