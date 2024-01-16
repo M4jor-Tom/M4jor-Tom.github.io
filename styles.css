@@ -1,5 +1,6 @@
 * {
 
+	--body-margin: 1vmin;
 	--small-font: .8rem;
 	--header-color: rgb(50, 100, 200);
 
@@ -13,8 +14,11 @@ html {
 
 body {
 
-	height: 100vh;
-	width: 100vw;
+	height: calc(100vh - 2 * var(--body-margin));
+	width: calc(100vw - 2 * var(--body-margin));
+
+	margin: var(--body-margin);
+
 	display: grid;
 	column-gap: 2%;
 	grid-template-columns: min-content 1fr;
