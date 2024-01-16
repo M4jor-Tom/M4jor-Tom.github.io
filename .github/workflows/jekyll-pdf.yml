@@ -13,7 +13,7 @@ jobs:
     - name: Install pandoc
       run: sudo apt-get install -y pandoc
     - name: Install xelatex
-      run: sudo apt-get install -y xelatex
+      run: sudo apt-get install -y texlive-xetex
     - uses: actions/checkout@v3
     - name: Build pdf for curiculum vitae
       run: |
