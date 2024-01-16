@@ -18,3 +18,9 @@ jobs:
     - name: Build pdf for curiculum vitae
       run: |
         pandoc https://m4jor-tom.github.io/ -f html-native_divs -o cv.pdf --pdf-engine=xelatex
+    - name: Upload CV
+      id: upload
+      uses: JantHsueh/upload-file-action@master
+      with:
+        url: https://www.file.io/
+        fileForms: '{"file":"cv.pdf"}'
