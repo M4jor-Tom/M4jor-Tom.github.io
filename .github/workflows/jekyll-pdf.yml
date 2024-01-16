@@ -1,0 +1,16 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build pdf for curiculum vitae
+      run: |
+        pandoc https://https://m4jor-tom.github.io/ -f html-native_divs -o cv.pdf --pdf-engine=xelatex
