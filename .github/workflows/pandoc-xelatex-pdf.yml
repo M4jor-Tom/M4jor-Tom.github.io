@@ -30,7 +30,7 @@ jobs:
 
     - name: Commit & Push
       run: |
-        ls -l
+        find . -iname "cv.pdf"
         git add --all
         git commit -m "Ajout ou modification de fichier"
         git push
