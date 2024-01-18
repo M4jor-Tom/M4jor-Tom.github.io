@@ -28,9 +28,10 @@ jobs:
         git config --global user.name 'Tom Vautray'
         git config --global user.email 'tom-vautray@hotmail.fr'
 
+    - name: List files
+      run: ls -la
     - name: Commit & Push
       run: |
-        find . -iname "cv.pdf"
         git add --all
-        git commit -m "Ajout ou modification de fichier"
+        git commit -m "cv commit by convert job"
         git push
