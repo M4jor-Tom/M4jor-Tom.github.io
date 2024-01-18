@@ -19,12 +19,6 @@ jobs:
     - name: Build pdf for curiculum vitae
       run: |
         pandoc https://m4jor-tom.github.io/ -f html-native_divs -o cv.pdf --pdf-engine=xelatex
-    - name: Archive production artifacts for pdf
-      uses: actions/upload-artifact@v3
-      with:
-        name: cv
-        path: |
-          cv.pdf
           
     - name: Checkout
       uses: actions/checkout@v2
@@ -36,6 +30,7 @@ jobs:
 
     - name: Commit & Push
       run: |
-        git add cv.pdf
+        ls -l
+        git add --all
         git commit -m "Ajout ou modification de fichier"
         git push
