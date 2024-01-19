@@ -27,7 +27,8 @@ jobs:
       run: |
         git config --global user.name 'Tom Vautray'
         git config --global user.email 'tom-vautray@hotmail.fr'
-
+    - name: touch test file
+      run: touch test.test
     - name: List files
       run: ls -la
     - name: Commit & Push
