@@ -45,7 +45,7 @@ jobs:
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
     
     - name: Getting permission to convert
-      run: sudo echo <policy domain="coder" rights="read | write" pattern="PDF" />' > /etc/ImageMagick-6/policy.xml
+      run: sudo echo '<policy domain="coder" rights="read | write" pattern="PDF" />' > /etc/ImageMagick-6/policy.xml
     
     - name: Convert png to pdf
       run: convert cv.png cv.pdf
