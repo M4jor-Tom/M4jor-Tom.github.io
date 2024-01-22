@@ -26,9 +26,6 @@ jobs:
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
-          
-    - name: Checkout
-      uses: actions/checkout@v3
 
     - name: Configure Git
       run: |
