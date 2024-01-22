@@ -1,0 +1,48 @@
+name: PDF Exporting
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  convert:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # - name: Install pandoc
+    #   run: sudo apt-get install -y pandoc
+
+    # - name: Install xelatex
+    #   run: sudo apt-get install -y texlive-xetex
+
+    # - name: Install lmodern
+    #   run: sudo apt-get install lmodern
+
+    # - name: Install fonts
+    #   run: sudo apt-get install texlive-fonts-recommended
+
+    - name: Screenshot
+      run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
+          
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure Git
+      run: |
+        git config --global user.name 'Tom Vautray'
+        git config --global user.email 'tom-vautray@hotmail.fr'
+
+    - name: touch test file
+      run: touch test.test
+
+    - name: List files
+      run: ls -la
+
+    - name: Commit & Push
+      run: |
+        git add --all
+        git commit -m "Cv commit by convert job"
+        git push
