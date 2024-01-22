@@ -45,6 +45,9 @@ jobs:
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
+    
+    - name: Convert png to pdf
+      run: convert cv.png cv.pdf
 
     - name: Commit & Push
       run: |
