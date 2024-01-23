@@ -2,6 +2,8 @@
 
 	--body-margin: 1vmin;
 	--small-font: .8rem;
+	--bigger-font: 1.5rem;
+	--big-font: 1.2rem;
 	--header-color: rgb(50, 100, 200);
 	--link-color: rgb(50, 100, 200);
 
@@ -105,6 +107,16 @@ img {
 #right-panel > .header {
 
 	text-align: center;
+}
+
+#right-panel > .header > #name {
+	
+	font-size: var(--bigger-font);
+}
+
+#right-panel > .header > #title {
+	
+	font-size: var(--big-font);
 }
 
 #right-panel {
