@@ -43,6 +43,9 @@ jobs:
     
     - name: Reset pdf-cv-releasing branch to master
       run: git reset --hard master
+    
+    - name: Remove non-exported files
+      run: rm -rf *
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
