@@ -1,10 +1,8 @@
 name: PDF Exporting
 
 on:
-  workflow_run:
-    workflows: ['pages-build-deployment']
-    types:
-      - completed
+  push: 
+    branches: ['master']
 
 jobs:
 
@@ -15,18 +13,6 @@ jobs:
     permissions: write-all
 
     steps:
-
-    # - name: Install pandoc
-    #   run: sudo apt-get install -y pandoc
-
-    # - name: Install xelatex
-    #   run: sudo apt-get install -y texlive-xetex
-
-    # - name: Install lmodern
-    #   run: sudo apt-get install lmodern
-
-    # - name: Install fonts
-    #   run: sudo apt-get install texlive-fonts-recommended
 
     - uses: actions/checkout@v3
 
@@ -43,28 +29,13 @@ jobs:
     
     - name: Reset pdf-cv-releasing branch to master
       run: git reset --hard master
-    
-    # - name: Remove non-exported files
-    #   run: rm -rf *
-    
-    # - name: Remove .github/ directory
-    #   run: rm -rf .github
       
     - name: html to pdf
       uses: fifsky/html-to-pdf-action@master
       with:
         htmlFile: index.html
-        outputFile: resume.pdf
+        outputFile: generated/resume.pdf
         pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
-
-    - name: Screenshot
-      run: chromium --headless --force-device-scale-factor=1 --window-size=3600,2400 --screenshot="cv.jpg" https://m4jor-tom.github.io/
-
-    - name: Install img2pdf
-      run: sudo apt install img2pdf
-
-    - name: Convert cv.jpg to cv.pdf 
-      run: img2pdf cv.jpg -o cv.pdf
 
     - name: Commit & Push
       run: |
