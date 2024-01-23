@@ -76,6 +76,7 @@ img {
 	column-gap: 1vw;
 	font-size: var(--small-font);
 	align-items: center;
+	white-space: nowrap;
 }
 
 #left-panel > #personal-data > #e-mail {
