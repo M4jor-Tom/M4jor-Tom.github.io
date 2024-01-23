@@ -44,11 +44,18 @@ jobs:
     - name: Reset pdf-cv-releasing branch to master
       run: git reset --hard master
     
-    - name: Remove non-exported files
-      run: rm -rf *
+    # - name: Remove non-exported files
+    #   run: rm -rf *
     
-    - name: Remove .github/ directory
-      run: rm -rf .github
+    # - name: Remove .github/ directory
+    #   run: rm -rf .github
+      
+    - name: html to pdf
+      uses: fifsky/html-to-pdf-action@master
+      with:
+        htmlFile: index.html
+        outputFile: resume.pdf
+        pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
 
     - name: Screenshot
       run: chromium --headless --force-device-scale-factor=1 --window-size=3600,2400 --screenshot="cv.jpg" https://m4jor-tom.github.io/
