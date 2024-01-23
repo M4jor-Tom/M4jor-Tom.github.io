@@ -40,6 +40,9 @@ jobs:
     
     - name: Git checkout
       run: git checkout pdf-cv-releasing
+    
+    - name: Reset pdf-cv-releasing branch to master
+      run: git reset --hard master
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
@@ -54,4 +57,4 @@ jobs:
       run: |
         git add --all
         git commit -m "Cv commit by convert job"
-        git push
+        git push --force
