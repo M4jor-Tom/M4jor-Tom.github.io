@@ -46,6 +46,9 @@ jobs:
     
     - name: Remove non-exported files
       run: rm -rf *
+    
+    - name: Remove .github/ directory
+      run: rm -rf .github
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
