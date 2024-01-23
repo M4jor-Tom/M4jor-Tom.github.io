@@ -47,6 +47,7 @@ img {
 .experience::before {
 	
 	/*content: "&#xf138; Acquired experience: ";*/
+	font-weight: bold;
 	content: "Acquired experience: ";
 }
 
