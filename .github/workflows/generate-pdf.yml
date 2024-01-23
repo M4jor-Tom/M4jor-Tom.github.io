@@ -51,13 +51,13 @@ jobs:
       run: rm -rf .github
 
     - name: Screenshot
-      run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
+      run: chromium --headless --force-device-scale-factor=1 --window-size=3600,2400 --screenshot="cv.jpg" https://m4jor-tom.github.io/
 
     - name: Install img2pdf
       run: sudo apt install img2pdf
 
-    - name: Convert cv.png to cv.pdf 
-      run: img2pdf cv.png -o cv.pdf
+    - name: Convert cv.jpg to cv.pdf 
+      run: img2pdf cv.jpg -o cv.pdf
 
     - name: Commit & Push
       run: |
