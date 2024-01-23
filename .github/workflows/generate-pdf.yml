@@ -43,12 +43,12 @@ jobs:
 
     - name: Screenshot
       run: chromium --headless --screenshot="cv.png" https://m4jor-tom.github.io/
-    
-    - name: Getting permission to convert
-      run: sudo echo '<policy domain="coder" rights="read | write" pattern="PDF" />' > /etc/ImageMagick-6/policy.xml
-    
-    - name: Convert png to pdf
-      run: convert cv.png cv.pdf
+
+    - name: Install img2pdf
+      run: sudo apt install img2pdf
+
+    - name: Convert cv.png to cv.pdf 
+      run: img2pdf cv.png -o cv.pdf
 
     - name: Commit & Push
       run: |
