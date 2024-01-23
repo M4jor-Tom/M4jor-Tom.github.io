@@ -86,7 +86,7 @@ img {
 
 	display: grid;
 	grid-auto-rows: min-content;
-	row-gap: .6vw;
+	row-gap: .6vmin;
 }
 
 #left-panel > #personal-data > * {
