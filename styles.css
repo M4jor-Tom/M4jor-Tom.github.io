@@ -6,16 +6,40 @@
 	--big-font: 1.2rem;
 
 	font-family: Arial, Helvetica, sans-serif;
-
-	color: var(--text-color);
 }
 
-body[theme="navy"] {
+[theme="navy"] {
 
-	--header-color: rgb(50, 100, 200);
-	--link-color: rgb(50, 100, 200);
-	--title-color: rgb(16, 48, 86);
-	--text-color: rgb(48, 48, 48);
+	/* Colors values */
+	--lightest-color: rgba(255, 255, 255, 1);
+	--darkest-color: rgba(0, 0, 0, 1);
+
+	--dark-color: rgba(48, 48, 48, 1);
+
+	--accent-color: rgba(50, 100, 200, 1);
+	--dominant-color: rgba(16, 48, 86, 1);
+
+	/* Colors mapping */
+	--header-color: var(--accent-color);
+	--link-color: var(--accent-color);
+
+	--title-color: var(--dominant-color);
+	--title-contrast-color: var(--lightest-color);
+	
+	--text-color: var(--dark-color);
+
+	--line-color: var(--dominant-color);
+	--line-contrast-color: var(--lightest-color);
+}
+
+html {
+	
+	background-color: var(--lightest-color);
+}
+
+body {
+	
+	color: var(--text-color);
 }
 
 a {
