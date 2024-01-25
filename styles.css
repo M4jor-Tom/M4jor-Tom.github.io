@@ -64,6 +64,14 @@ body {
 	grid-template-columns: min-content 1fr;
 }
 
+.h-line {
+
+	background: -moz-radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
+	background: -webkit-radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
+	background: radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=var(--line-color),endColorstr=var(--line-color),GradientType=1); 
+}
+
 a.mention {
 
 	width: 2vmax;
@@ -114,7 +122,16 @@ img {
 	font-size: var(--small-font);
 }
 
-#left-panel, #left-panel > #personal-data {
+#left-panel {
+
+	display: grid;
+	grid-template-rows: 
+		repeat(2, min-content) /* photos, personnal-data */
+		repeat(2, 1px min-content); /* Languages, skills */
+	row-gap: .6vmin;
+}
+
+#left-panel > #personal-data {
 
 	display: grid;
 	grid-auto-rows: min-content;
