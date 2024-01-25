@@ -4,10 +4,15 @@
 	--small-font: .8rem;
 	--bigger-font: 1.5rem;
 	--big-font: 1.2rem;
-	--header-color: rgb(50, 100, 200);
-	--link-color: rgb(50, 100, 200);
 
 	font-family: Arial, Helvetica, sans-serif;
+}
+
+body[theme="navy"] {
+
+	--header-color: rgb(50, 100, 200);
+	--link-color: rgb(50, 100, 200);
+	--title-color: rgb(8, 32, 76);
 }
 
 a {
@@ -107,6 +112,7 @@ img {
 #right-panel > .header {
 
 	text-align: center;
+	color: var(--title-color);
 }
 
 #right-panel > .header > #name {
