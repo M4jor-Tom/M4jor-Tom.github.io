@@ -1,10 +1,15 @@
-* {
+:root {
+	
+	--default-font: 1.4vmax;
 
 	--body-margin: 1vmin;
+
 	--small-font: .8rem;
 	--bigger-font: 1.5rem;
 	--big-font: 1.2rem;
+}
 
+* {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -44,7 +49,7 @@ a {
 
 html {
 
-	font-size: 1.4vmax;
+	font-size: var(--default-font);
 }
 
 body {
