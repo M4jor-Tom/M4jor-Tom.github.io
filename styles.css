@@ -32,11 +32,6 @@
 	--line-contrast-color: var(--lightest-color);
 }
 
-html {
-	
-	background-color: var(--lightest-color);
-}
-
 body {
 	
 	color: var(--text-color);
