@@ -139,7 +139,8 @@ img {
 #right-panel > .header {
 
 	text-align: center;
-	color: var(--title-color);
+	background-color: var(--title-color);
+	color: var(--title-contrast-color);
 }
 
 #right-panel > .header > #name {
