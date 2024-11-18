@@ -38,6 +38,20 @@
 	--line-contrast-color: var(--lightest-color);
 }
 
+[mapping="pdf"] {
+
+	--header-color: var(--accent-color);
+	--link-color: var(--accent-color);
+
+	--title-color: var(--lightest-color);
+	--title-contrast-color: var(--darkest-color);
+	
+	--text-color: var(--dark-color);
+
+	--line-color: var(--dominant-color);
+	--line-contrast-color: var(--lightest-color);
+}
+
 body {
 	
 	color: var(--text-color);
