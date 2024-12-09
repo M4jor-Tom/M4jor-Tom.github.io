@@ -89,7 +89,7 @@ body {
 
 a.mention {
 
-	width: 2vmax;
+	width: 2vw;
 }
 
 img {
@@ -164,14 +164,14 @@ img {
 	grid-template-rows: 
 		repeat(2, min-content) /* photos, personnal-data */
 		repeat(2, 1px min-content); /* Languages, skills */
-	row-gap: .6vmin;
+	row-gap: .6vh;
 }
 
 #left-panel > #personal-data {
 
 	display: grid;
 	grid-auto-rows: min-content;
-	row-gap: .6vmin;
+	row-gap: .6vh;
 }
 
 #left-panel > #personal-data > * {
@@ -209,7 +209,7 @@ img {
 #right-panel {
 
 	display: grid;
-	row-gap: 2.5vmax;
+	row-gap: 4vh;
 	grid-template-rows: repeat(3, min-content);
 }
 
@@ -230,9 +230,9 @@ img {
 
 	display: grid;
 	grid-auto-rows: auto;
-	row-gap: .5rem;
+	row-gap: 2.2vh;
 }
 
 #right-panel > .body > #centers-of-interest > .body {
-	row-gap: .2rem;
+	row-gap: 1vh;
 }
