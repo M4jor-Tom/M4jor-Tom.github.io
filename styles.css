@@ -141,6 +141,11 @@ img {
 	content: "\25BA";
 }
 
+#left-panel > #skills > .body > .category {
+
+	margin-top: 1vh;
+}
+
 #left-panel > #skills > .body > .category > .header {
 
 	font-size: var(--small-font);
