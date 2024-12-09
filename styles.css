@@ -138,9 +138,11 @@ img {
 	content: "\25BA";
 }
 
-#left-panel > #skills > .body > .category {
+#left-panel > #skills > .body {
 
-	margin-top: 1vh;
+	display: grid;
+	grid-auto-rows: auto;
+	row-gap: 1vh;
 }
 
 #left-panel > #skills > .body > .category > .header {
