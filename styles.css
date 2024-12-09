@@ -102,9 +102,14 @@ img {
 	font-weight: bold;
 }
 
-.body {
+#right-panel .body {
 
 	margin-left: 1vw;
+}
+
+#left-panel .body {
+
+	margin-left: .5vw;
 }
 
 .experience::before {
@@ -131,7 +136,18 @@ img {
 	content: "\25BA";
 }
 
-#left-panel > #skills > .body > .list-element,
+#left-panel > #skills > .body > .category > .header::after {
+
+	content: "\25BA";
+}
+
+#left-panel > #skills > .body > .category > .header {
+
+	font-size: var(--small-font);
+	font-weight: bolder;
+}
+
+#left-panel > #skills > .body > .category > .body > .list-element,
 #left-panel > #languages > .body > .list-element {
 
 	font-size: var(--small-font);
