@@ -153,6 +153,7 @@ img {
 
 	font-weight: bold;
 	color: var(--skill-rate-text-color);
+	white-space: nowrap;
 }
 
 #left-panel > #skills > .body > .category > .body > .list-element {
