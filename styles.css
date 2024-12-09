@@ -33,6 +33,7 @@
 	--title-contrast-color: var(--lightest-color);
 	
 	--text-color: var(--dark-color);
+	--skill-rate-text-color: var(--dominant-color);
 
 	--line-color: var(--dominant-color);
 	--line-contrast-color: var(--lightest-color);
@@ -47,6 +48,7 @@
 	--title-contrast-color: var(--darkest-color);
 	
 	--text-color: var(--dark-color);
+	--skill-rate-text-color: var(--dominant-color);
 
 	--line-color: var(--dominant-color);
 	--line-contrast-color: var(--lightest-color);
@@ -150,6 +152,18 @@ img {
 
 	font-size: var(--small-font);
 	font-weight: bolder;
+}
+
+#left-panel > #skills > .body > .category > .body > .list-element > .rate {
+
+	font-weight: bold;
+	color: var(--skill-rate-text-color);
+}
+
+#left-panel > #skills > .body > .category > .body > .list-element {
+
+	display: grid;
+	grid-template-columns: 5.5ch auto;
 }
 
 #left-panel > #skills > .body > .category > .body > .list-element,
