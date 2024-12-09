@@ -138,11 +138,6 @@ img {
 	content: "\25BA";
 }
 
-#left-panel > #skills > .body > .category > .header::after {
-
-	content: "\25BA";
-}
-
 #left-panel > #skills > .body > .category {
 
 	margin-top: 1vh;
