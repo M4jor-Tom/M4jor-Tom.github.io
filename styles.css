@@ -242,9 +242,9 @@ img {
 
 	display: grid;
 	grid-auto-rows: auto;
-	row-gap: 2.2vh;
+	row-gap: 1.8vh;
 }
 
 #right-panel > .body > #centers-of-interest > .body {
-	row-gap: 1vh;
+	row-gap: .8vh;
 }
