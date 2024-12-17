@@ -83,10 +83,15 @@ body {
 
 .h-line {
 
-	background: -moz-radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
-	background: -webkit-radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
-	background: radial-gradient(circle, var(--line-color) 0%, var(--line-color) 0%, var(--line-contrast-color) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=var(--line-color),endColorstr=var(--line-color),GradientType=1); 
+	width: 100%;
+	height: .5vh;
+}
+
+.h-line rect {
+
+	width: 100%;
+	height: 100%;
+	fill: var(--accent-color);
 }
 
 a.mention {
