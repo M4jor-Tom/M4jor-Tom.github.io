@@ -33,7 +33,7 @@
 	--title-contrast-color: var(--lightest-color);
 	
 	--text-color: var(--dark-color);
-	--skill-rate-text-color: var(--dominant-color);
+	--skill-time-text-color: var(--dominant-color);
 
 	--line-color: var(--dominant-color);
 	--line-contrast-color: var(--lightest-color);
@@ -48,7 +48,7 @@
 	--title-contrast-color: var(--darkest-color);
 	
 	--text-color: var(--dark-color);
-	--skill-rate-text-color: var(--dominant-color);
+	--skill-time-text-color: var(--dominant-color);
 
 	--line-color: var(--dominant-color);
 	--line-contrast-color: var(--lightest-color);
@@ -156,10 +156,10 @@ img {
 	font-weight: bolder;
 }
 
-#left-panel > #skills > .body > .category > .body > .list-element > .rate {
+#left-panel > #skills > .body > .category > .body > .list-element > .experience-time {
 
 	font-weight: bold;
-	color: var(--skill-rate-text-color);
+	color: var(--skill-time-text-color);
 	white-space: nowrap;
 }
 
