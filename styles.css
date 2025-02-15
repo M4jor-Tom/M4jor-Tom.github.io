@@ -227,7 +227,7 @@ img {
 
 	display: grid;
 	row-gap: 4vh;
-	grid-template-rows: repeat(3, min-content);
+	grid-auto-rows: min-content;
 }
 
 #right-panel > .body {
