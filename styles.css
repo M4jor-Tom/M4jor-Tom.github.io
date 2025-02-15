@@ -226,7 +226,7 @@ img {
 #right-panel {
 
 	display: grid;
-	row-gap: 4vh;
+	row-gap: 3vh;
 	grid-auto-rows: min-content;
 }
 
