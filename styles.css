@@ -166,7 +166,7 @@ img {
 #left-panel > #skills > .body > .category > .body > .list-element {
 
 	display: grid;
-	grid-template-columns: 8.5ch auto;
+	grid-template-columns: 6ch auto;
 }
 
 #left-panel > #skills > .body > .category > .body > .list-element,
