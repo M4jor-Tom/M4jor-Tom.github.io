@@ -104,8 +104,9 @@ img {
 	width: 100%;
 }
 
-.period {
+.content-title {
 
+	font+size: var(--bigger-font);
 	font-weight: bold;
 }
 
