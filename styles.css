@@ -252,6 +252,6 @@ img {
 
 .content-title {
 
-	font-size: var(--bigger-font);
+	font-size: var(--default-font);
 	font-weight: bold;
 }
