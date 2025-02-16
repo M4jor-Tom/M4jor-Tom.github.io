@@ -37,7 +37,7 @@ jobs:
       uses: fifsky/html-to-pdf-action@master
       with:
         htmlFile: index.html
-        outputFile: generated/TomVautrayResume.pdf
+        outputFile: generated/Tom_Vautray_Software_Engineer_Resume.pdf
         pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
 
     - name: Commit & Push
