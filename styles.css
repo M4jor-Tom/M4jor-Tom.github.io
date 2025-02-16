@@ -104,12 +104,6 @@ img {
 	width: 100%;
 }
 
-.content-title {
-
-	font+size: var(--bigger-font);
-	font-weight: bold;
-}
-
 #right-panel .body {
 
 	margin-left: 1vw;
@@ -252,5 +246,12 @@ img {
 }
 
 #right-panel > .body > #centers-of-interest > .body {
+
 	row-gap: .4vh;
+}
+
+.content-title {
+
+	font-size: var(--bigger-font);
+	font-weight: bold;
 }
