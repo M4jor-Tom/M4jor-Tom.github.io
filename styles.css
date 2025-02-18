@@ -117,7 +117,7 @@ img {
 .experience::before {
 	
 	font-weight: bold;
-	content: "\25BA Acquired experience: ";
+	content: "\25BA ";
 }
 
 #left-panel > * > .header {
