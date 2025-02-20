@@ -245,6 +245,12 @@ img {
 	row-gap: 1.8vh;
 }
 
+#right-panel > .body > #professional-summary > .body > .list-element > .content {
+
+	text-align: justify;
+  	text-justify: auto;
+}
+
 #right-panel > .body > #centers-of-interest > .body {
 
 	row-gap: .15vh;
