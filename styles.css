@@ -245,7 +245,7 @@ img {
 	row-gap: 1.8vh;
 }
 
-#right-panel > .body > #professional-summary > .body > .list-element > .content {
+#right-panel > .body > * > .body > .list-element > .content {
 
 	text-align: justify;
   	text-justify: auto;
