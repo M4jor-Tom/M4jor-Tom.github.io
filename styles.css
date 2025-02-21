@@ -114,6 +114,11 @@ img {
 	margin-left: .5vw;
 }
 
+.experience {
+
+	margin-top: .1vh;
+}
+
 .experience::before {
 	
 	font-weight: bold;
