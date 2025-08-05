@@ -135,7 +135,7 @@ img {
 
 	display: grid;
 	grid-auto-rows: min-content;
-	row-gap: 1vh;
+	row-gap: .5vh;
 }
 
 #left-panel > #languages > .body > .list-element > .language::before {
@@ -266,3 +266,4 @@ img {
 	font-size: var(--default-font);
 	font-weight: bold;
 }
+
