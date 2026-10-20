@@ -1,47 +1,39 @@
 name: PDF Exporting
 
 on:
-  push: 
+  push:
     branches: ['master']
 
+permissions:
+  contents: write
+
+concurrency:
+  group: pdf-export
+  cancel-in-progress: false
+
 jobs:
-
   convert:
-
-    runs-on: ubuntu-latest
-
-    permissions: write-all
-
+    # Ubuntu 22.04 permits Chromium's user-namespace sandbox without extra AppArmor rules.
+    runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v31.11.2
 
-    - name: Configure Git
-      run: |
-        git config --global user.name 'Tom Vautray'
-        git config --global user.email 'tom-vautray@hotmail.fr'
-    
-    - name: Git pull
-      run: git pull
-    
-    - name: Git checkout
-      run: git checkout pdf-cv-releasing
-    
-    - name: Reset pdf-cv-releasing branch to master
-      run: git reset --hard master
-    
-    - name: Make generated directory
-      run: mkdir generated
-      
-    - name: html to pdf
-      uses: fifsky/html-to-pdf-action@master
-      with:
-        htmlFile: index.html
-        outputFile: generated/Tom_Vautray_Software_Engineer_Resume.pdf
-        pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
+      - name: Install dependencies
+        run: nix develop -c npm ci
 
-    - name: Commit & Push
-      run: |
-        git add --all
-        git commit -m "Cv commit by convert job"
-        git push --force
+      - name: Check PDF export
+        run: nix develop -c npm test
+
+      - name: Generate PDF
+        run: nix develop -c npm run pdf
+
+      - name: Commit & Push
+        run: |
+          git config user.name 'Tom Vautray'
+          git config user.email 'tom-vautray@hotmail.fr'
+          git checkout -B pdf-cv-releasing
+          git add -f generated/Tom_Vautray_Software_Engineer_Resume.pdf
+          git commit -m "chore: regenerate resume PDF"
+          git push --force origin HEAD:pdf-cv-releasing
