@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -8,17 +8,27 @@ import test from 'node:test';
 import puppeteer from 'puppeteer-core';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const expected = JSON.parse(readFileSync(new URL('./fixtures/resume-content.json', import.meta.url), 'utf8'));
 
-test('builds one resume, preserves its content, and reflects Markdown edits and explicit ordering', { timeout: 180_000 }, async () => {
+test('renders Markdown, escapes profile fields, and rebuilds ordered content edits', { timeout: 180_000 }, async () => {
   const fixture = mkdtempSync(join(tmpdir(), 'resume-site-'));
   let browser;
   try {
-    const available = new Set(readdirSync(root));
     for (const name of ['src', 'eleventy.config.js', 'package.json', 'styles.css', 'assets']) {
-      if (available.has(name)) cpSync(join(root, name), join(fixture, name), { recursive: true });
+      cpSync(join(root, name), join(fixture, name), { recursive: true });
     }
     symlinkSync(join(root, 'node_modules'), join(fixture, 'node_modules'), 'junction');
+    const summary = join(fixture, 'src/content/summary.md');
+    writeFileSync(summary, '---\ntitle: Summary regression title\n---\n\nSummary **bold marker** and a [profile link](https://example.com/profile).\n');
+    const profile = join(fixture, 'src/content/profile.md');
+    const name = '<img src=x onerror="window.resumeInjected=true"> & co';
+    writeFileSync(profile, readFileSync(profile, 'utf8').replace(/^name:.*$/m, `name: '${name}'`));
+    const experience = join(fixture, 'src/content/experience');
+    rmSync(experience, { recursive: true });
+    mkdirSync(experience);
+    writeFileSync(join(experience, 'a-later.md'), '---\norder: 20\nperiod: "Later period"\n---\n\nLater job.\n');
+    const earlier = join(experience, 'z-earlier.md');
+    writeFileSync(earlier, '---\norder: 10\nperiod: "Earlier period"\n---\n\nEarlier job.\n');
+
     const build = () => {
       const result = spawnSync('npm', ['run', 'build'], { cwd: fixture, encoding: 'utf8', timeout: 60_000 });
       assert.equal(result.status, 0, result.stdout + result.stderr);
@@ -30,46 +40,32 @@ test('builds one resume, preserves its content, and reflects Markdown edits and 
       args: ['--font-render-hinting=none'],
     });
     const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 960, deviceScaleFactor: 1 });
     const failed = [];
     page.on('requestfailed', request => failed.push(request.url()));
-    const open = async () => {
-      await page.goto(pathToFileURL(join(fixture, '_site/index.html')).href, { waitUntil: 'networkidle0' });
-      await page.evaluate(() => document.fonts.ready);
-    };
+    const open = () => page.goto(pathToFileURL(join(fixture, '_site/index.html')).href, { waitUntil: 'networkidle0' });
+    const periods = () => page.$$eval('#professional-experiences .content-title', entries => entries.map(el => el.textContent.trim()));
     await open();
-    const actual = await page.evaluate(() => {
-      const normalize = value => value.replace(/\s+/gu, ' ').trim();
-      let text = normalize(document.body.innerText);
-      for (const header of document.querySelectorAll('#languages thead, #skills thead')) {
-        const box = header.getBoundingClientRect();
-        if (box.width > 1.01 || box.height > 1.01 || getComputedStyle(header).clipPath === 'none') {
-          throw new Error('Table labels must remain visually clipped');
-        }
-        text = text.replace(normalize(header.innerText), '');
-      }
-      return {
-        title: document.title,
-        text: normalize(text),
-        emphasis: [...document.querySelectorAll('b, strong')].map(el => normalize(el.textContent)),
-        links: [...document.querySelectorAll('a')].map(el => [normalize(el.textContent), el.getAttribute('href')]),
-        images: [...document.images].map(el => el.getAttribute('src')),
-      };
-    });
-    assert.deepEqual(actual, expected);
+    assert.equal(await page.$eval('#professional-summary .header', el => el.textContent), 'Summary regression title');
+    assert.equal(await page.$eval('#professional-summary p', el => el.textContent), 'Summary bold marker and a profile link.');
+    assert.equal(await page.$eval('#professional-summary strong', el => el.textContent), 'bold marker');
+    assert.equal(await page.$eval('#professional-summary a', el => el.href), 'https://example.com/profile');
+    assert.deepEqual(await periods(), ['Earlier period', 'Later period']);
+    assert.equal(await page.$eval('#name', el => el.textContent.trim()), name);
+    assert.equal(await page.evaluate(() => document.querySelector('#name img') === null && window.resumeInjected === undefined), true);
+    assert.equal(await page.evaluate(() => [...document.querySelectorAll('a')].every(link =>
+      (link.target || document.querySelector('base')?.target) === '_blank')), true, 'links must keep opening in a new tab');
     assert.equal(await page.evaluate(() => [...document.images].every(img => img.complete && img.naturalWidth > 0)), true);
-    assert.deepEqual(failed, []);
+    assert.equal(await page.$$eval('#languages thead, #skills thead', headers => headers.every(header => {
+      const box = header.getBoundingClientRect();
+      return box.width <= 1.01 && box.height <= 1.01 && getComputedStyle(header).clipPath !== 'none';
+    })), true, 'table headers must stay visually clipped');
 
-    const thales = join(fixture, 'src/content/experience/thales.md');
-    writeFileSync(thales, readFileSync(thales, 'utf8').replace('order: 1', 'order: 99') + '\n\n**Markdown regression marker**\n');
-    const profile = join(fixture, 'src/content/profile.md');
-    writeFileSync(profile, readFileSync(profile, 'utf8').replace('name: Tom VAUTRAY', 'name: \'<img src=x onerror="window.resumeInjected=true"> & co\''));
+    writeFileSync(earlier, readFileSync(earlier, 'utf8').replace('order: 10', 'order: 30'));
+    writeFileSync(summary, readFileSync(summary, 'utf8').replace('bold marker', 'updated marker'));
     build();
     await open();
-    assert.equal(await page.evaluate(() => [...document.querySelectorAll('#professional-experiences strong')].some(el => el.textContent === 'Markdown regression marker')), true);
-    assert.equal(await page.evaluate(() => document.querySelector('#professional-experiences .list-element:last-child .content-title').textContent.trim()), '2022 - now');
-    assert.equal(await page.evaluate(() => document.querySelector('#name').textContent.trim()), '<img src=x onerror="window.resumeInjected=true"> & co');
-    assert.equal(await page.evaluate(() => document.querySelector('#name img') === null && window.resumeInjected === undefined), true);
+    assert.deepEqual(await periods(), ['Later period', 'Earlier period']);
+    assert.equal(await page.$eval('#professional-summary strong', el => el.textContent), 'updated marker');
     assert.deepEqual(failed, []);
   } finally {
     if (browser) await browser.close();

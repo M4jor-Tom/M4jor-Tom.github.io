@@ -93,8 +93,9 @@ by invoking `scripts/generate-pdf.mjs` through Nix using its absolute path.
 
 Content growth can overflow the one-page resume. Inspect the PDF before publishing;
 the tests enforce one page, rather than silently shrinking text. Tests also check
-content/emphasis/link preservation, Markdown edits and ordering, escaped profile
-fields, embedded images/fonts and export failure handling.
+Markdown rendering, links, edits and ordering, escaped profile fields, embedded
+images/fonts and export failure handling. Ordinary content changes do not require
+updating a frozen resume snapshot.
 
 ## Publishing
 
