@@ -17,13 +17,13 @@ title: Skills
 | Duration | Skill |
 | --- | --- |
 | 3 yrs | **Design patterns** |
-| 3 yrs | **Java** & **Spring-Boot** |
+| 3 yrs | **Java**&nbsp;&&nbsp;**Spring-Boot** |
 | 3 yrs | **REST APIs** |
 | 4 mo | **Microservices** |
 | 6 mo | JHipster |
 | 8 mo | Python |
 | 1 yr | C++ |
-| 1.5 yrs | PostgreSQL & MySQL |
+| 1.5 yrs | PostgreSQL&nbsp;&&nbsp;MySQL |
 | 1 yr | PHP |
 
 ### DevOps
@@ -34,7 +34,7 @@ title: Skills
 | 1 yr | **Git** CLI |
 | 2 yrs | **Git**Kraken |
 | 3 mo | **Git**Hub Actions & CI/CD |
-| 8 mo | **Docker** & Kubernetes |
+| 8 mo | **Docker**&nbsp;&&nbsp;Kubernetes |
 | 9 mo | **CI/CD & Shell** scripting |
 | 9 mo | **Nexus** administration |
 

@@ -8,8 +8,8 @@
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve",
-    "pdf": "node scripts/generate-pdf.mjs",
-    "test": "node --test scripts/generate-pdf.test.mjs"
+    "pdf": "npm run build && node scripts/generate-pdf.mjs",
+    "test": "npm run build && node --test scripts/*.test.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.7",

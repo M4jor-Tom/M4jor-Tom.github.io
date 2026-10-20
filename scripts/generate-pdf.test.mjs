@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 test('exports a complete one-page A4 PDF from any cwd and rejects missing assets', () => {
   const fixture = mkdtempSync(join(tmpdir(), 'resume-pdf-'));
   try {
-    for (const path of ['index.html', 'styles.css', 'assets', 'scripts']) {
+    for (const path of ['_site', 'scripts']) {
       cpSync(join(root, path), join(fixture, path), { recursive: true });
     }
     symlinkSync(join(root, 'node_modules'), join(fixture, 'node_modules'), 'junction');
@@ -32,7 +32,7 @@ test('exports a complete one-page A4 PDF from any cwd and rejects missing assets
     assert.ok([...contents.matchAll(/\/Subtype\s*\/Image\b/g)].length >= 10, 'must embed the photo and nine icons');
     assert.match(contents, /LiberationSans/, 'must embed the original metric-compatible font');
 
-    for (const asset of ['styles.css', 'assets/PhotoLMGCouleursCrop.jpg']) {
+    for (const asset of ['_site/styles.css', '_site/assets/PhotoLMGCouleursCrop.jpg']) {
       renameSync(join(fixture, asset), join(fixture, `${asset}.missing`));
       const failed = generate();
       assert.notEqual(failed.status, 0, `must reject missing ${asset}`);

@@ -3,7 +3,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 
-const input = new URL('../index.html', import.meta.url);
+const input = new URL('../_site/index.html', import.meta.url);
 const output = fileURLToPath(new URL('../generated/Tom_Vautray_Software_Engineer_Resume.pdf', import.meta.url));
 const browser = await puppeteer.launch({
   executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,

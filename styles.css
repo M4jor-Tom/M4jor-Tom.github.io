@@ -114,17 +114,6 @@ img {
 	margin-left: .5vw;
 }
 
-.experience {
-
-	margin-top: .1vh;
-}
-
-.experience::before {
-	
-	font-weight: bold;
-	content: "\25BA ";
-}
-
 #left-panel > * > .header {
 
 	color: var(--header-color);
@@ -136,43 +125,6 @@ img {
 	display: grid;
 	grid-auto-rows: min-content;
 	row-gap: .5vh;
-}
-
-#left-panel > #languages > .body > .list-element > .language::before {
-
-	content: "\25BA";
-}
-
-#left-panel > #skills > .body {
-
-	display: grid;
-	grid-auto-rows: auto;
-	row-gap: 1vh;
-}
-
-#left-panel > #skills > .body > .category > .header {
-
-	font-size: var(--small-font);
-	font-weight: bolder;
-}
-
-#left-panel > #skills > .body > .category > .body > .list-element > .experience-time {
-
-	font-weight: bold;
-	color: var(--skill-time-text-color);
-	white-space: nowrap;
-}
-
-#left-panel > #skills > .body > .category > .body > .list-element {
-
-	display: grid;
-	grid-template-columns: 6ch auto;
-}
-
-#left-panel > #skills > .body > .category > .body > .list-element,
-#left-panel > #languages > .body > .list-element {
-
-	font-size: var(--small-font);
 }
 
 #left-panel {
@@ -250,12 +202,6 @@ img {
 	row-gap: 1.8vh;
 }
 
-#right-panel > .body > * > .body > .list-element > .content {
-
-	text-align: justify;
-  	text-justify: auto;
-}
-
 #right-panel > .body > #centers-of-interest > .body {
 
 	row-gap: .15vh;
@@ -295,7 +241,7 @@ img {
 	content: "\25BA ";
 }
 
-#left-panel > #skills > .body:has(> table) {
+#left-panel > #skills > .body {
 	display: block;
 }
 
