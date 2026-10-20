@@ -1,39 +1,76 @@
-name: PDF Exporting
+name: Resume
 
 on:
   push:
-    branches: ['master']
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pdf-export
+  group: resume-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  convert:
-    # Ubuntu 22.04 permits Chromium's user-namespace sandbox without extra AppArmor rules.
+  build:
+    # Chromium's sandbox works on Ubuntu 22.04 without extra AppArmor rules.
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-
       - uses: cachix/install-nix-action@v31.11.2
-
       - name: Install dependencies
         run: nix develop -c npm ci
-
-      - name: Check PDF export
+      - name: Build and check the resume
         run: nix develop -c npm test
+      - name: Export the verified site
+        run: nix develop -c node scripts/generate-pdf.mjs
+      - name: Upload website
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - name: Upload PDF
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v7
+        with:
+          name: resume-pdf
+          path: generated/Tom_Vautray_Software_Engineer_Resume.pdf
+          if-no-files-found: error
 
-      - name: Generate PDF
-        run: nix develop -c npm run pdf
+  deploy-pages:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v5
 
-      - name: Commit & Push
+  publish-pdf:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v8
+        with:
+          name: resume-pdf
+          path: generated
+      - name: Publish PDF
         run: |
           git config user.name 'Tom Vautray'
           git config user.email 'tom-vautray@hotmail.fr'
           git checkout -B pdf-cv-releasing
           git add -f generated/Tom_Vautray_Software_Engineer_Resume.pdf
-          git commit -m "chore: regenerate resume PDF"
+          git diff --cached --quiet || git commit -m "chore: regenerate resume PDF"
           git push --force origin HEAD:pdf-cv-releasing
