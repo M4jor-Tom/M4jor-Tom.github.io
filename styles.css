@@ -267,3 +267,97 @@ img {
 	font-weight: bold;
 }
 
+.entry-content p,
+#professional-summary p,
+#centers-of-interest ul,
+.entry-content ul {
+	margin: 0;
+	padding: 0;
+}
+
+.entry-content p,
+#professional-summary .body > p {
+	text-align: justify;
+	text-justify: auto;
+}
+
+.entry-content ul,
+#centers-of-interest ul {
+	list-style: none;
+}
+
+.entry-content li {
+	margin-top: .1vh;
+}
+
+.entry-content li::before {
+	font-weight: bold;
+	content: "\25BA ";
+}
+
+#left-panel > #skills > .body:has(> table) {
+	display: block;
+}
+
+#skills h3 {
+	margin: 1vh 0 0;
+	font-size: var(--small-font);
+	font-weight: bolder;
+}
+
+#skills h3:first-child {
+	margin-top: 0;
+}
+
+#skills table,
+#languages table {
+	border-collapse: collapse;
+	font-size: var(--small-font);
+}
+
+#skills table {
+	margin-left: .5vw;
+}
+
+#skills td,
+#languages td {
+	padding: 0;
+}
+
+#skills td:first-child {
+	min-width: 6ch;
+	font-weight: bold;
+	color: var(--skill-time-text-color);
+	white-space: nowrap;
+	vertical-align: top;
+}
+
+#skills thead,
+#languages thead {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+#languages tbody {
+	display: grid;
+	row-gap: .5vh;
+}
+
+#languages tr,
+#languages td {
+	display: block;
+}
+
+#languages td:first-child::before {
+	content: "\25BA";
+}
+
+#centers-of-interest ul {
+	display: grid;
+	row-gap: .15vh;
+}
+
