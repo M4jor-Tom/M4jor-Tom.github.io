@@ -1,11 +1,11 @@
 ---
 name: Tom VAUTRAY
-title: Full-Stack & DevOps Software Engineer
+title: Senior Software Engineer
 document_title: Resume - Tom VAUTRAY
-description: Resume of Tom Vautray, Software Development Engineer. Skills in React, Angular, Spring-Boot, and more.
-keywords: Tom Vautray, Resume, Software Engineer, React, Angular, Spring-Boot, Git, GitHub
+description: Resume of Tom Vautray, Software Development Engineer. Skills in React, Angular, Nix, Rust, and more.
+keywords: Tom Vautray, Resume, Software Engineer, React, Angular, Rust, Nix, Git, GitHub
 photo: assets/PhotoLMGCouleursCrop.jpg
-age: 26 years old
+age: 27 years old
 mobility: International mobility
 relocation: Open to Relocation
 nationality: French Nationality
