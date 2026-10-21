@@ -6,125 +6,107 @@ pagination:
 permalink: "{{ resume.slug }}/index.html"
 eleventyExcludeFromCollections: true
 ---
-{% set profile = resume.profile.data %}
-{% set summary = resume.summary %}
-{% set languages = resume.languages %}
-{% set skills = resume.skills %}
-{% set interests = resume.interests %}
+{% set profile = resume.profileData %}
+{% set fieldStyles = {
+  age: { id: "aging", icon: "happy-birthday", label: "Birthday", attribution: "https://www.flaticon.com/fr/icone-gratuite/happy-birthday_8675274?term=birthday&page=1&position=5&origin=search&related_id=8675274" },
+  mobility: { id: "place", icon: "planete-terre", label: "Earth", attribution: "https://www.flaticon.com/fr/icone-gratuite/planete-terre_921490?term=terre&page=1&position=1&origin=tag&related_id=921490" },
+  relocation: { icon: "maps-and-flags", label: "Pin", attribution: "https://www.flaticon.com/free-icons/pin" },
+  nationality: { id: "civility", icon: "france", label: "France", attribution: "https://www.flaticon.com/free-icons/france" },
+  phone: { icon: "appel-telephonique", label: "Phone", attribution: "https://www.flaticon.com/fr/icones-gratuites/telephone" },
+  email: { id: "e-mail", icon: "email", label: "Email", attribution: "https://www.flaticon.com/fr/icone-gratuite/email_3059474?term=email&page=1&position=7&origin=tag&related_id=3059474" },
+  linkedin_url: { id: "linkedin", icon: "linkedin", label: "LinkedIn", attribution: "https://www.flaticon.com/fr/icone-gratuite/sociale_14064516?term=linkedin&page=1&position=1&origin=tag&related_id=14064516" },
+  github_url: { id: "github", icon: "github", label: "GitHub", attribution: "https://www.flaticon.com/fr/icone-gratuite/github_4926624?term=github&page=1&position=1&origin=tag&related_id=4926624" },
+  pdf_label: { id: "resume-files", icon: "download", label: "Download", attribution: "https://www.flaticon.com/free-icon/download_724933" }
+} %}
 <!doctype html>
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
     <base target="_blank" />
-    <meta name="description" content="{{ profile.description }}">
-    <meta name="keywords" content="{{ profile.keywords }}">
+    {% for key in ["description", "keywords"] %}
+    {% if profile[key] %}<meta name="{{ key }}" content="{{ profile[key] }}">{% endif %}
+    {% endfor %}
     <link rel="stylesheet" href="../styles.css" />
     <link rel="icon" href="../assets/planete-terre.png" />
-    <title>{{ profile.document_title }}</title>
+    <title>{{ profile.document_title or profile.name or resume.slug }}</title>
   </head>
   <body theme="navy" mapping="pdf">
     <div id="left-panel">
+      {% if profile.photo %}
       <div id="photo">
-        <img src="../{{ profile.photo }}" alt="Portrait of {{ profile.name }}" />
+        <img src="../{{ profile.photo }}" alt="Portrait{% if profile.name %} of {{ profile.name }}{% endif %}" />
       </div>
+      {% endif %}
+      {% if resume.fields.length %}
       <div id="personal-data">
-        <div id="aging">
-          <a target="_blank" class="mention" aria-label="Birthday icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/happy-birthday_8675274?term=birthday&page=1&position=5&origin=search&related_id=8675274">
-            <img src="../assets/happy-birthday.png" alt="" />
+        {% for key, value in resume.fields %}
+        {% set style = fieldStyles.nationality if key == "work_permit" else fieldStyles[key] %}
+        {% set linkKey = key.slice(0, -4) if key.endsWith("_url") else key %}
+        <div id="{{ style.id or linkKey }}"{% if not style %} class="plain-field"{% endif %}>
+          {% if style.icon %}
+          <a target="_blank" class="mention" aria-label="{{ style.label }} icon attribution" href="{{ style.attribution }}">
+            <img src="../assets/{{ style.icon }}.png" alt="" />
           </a>
-          {{ profile.age }}
+          {% endif %}
+          {% if key.endsWith("_url") %}
+          <a target="_blank" class="link" href="{{ value }}">{{ profile[linkKey + "_label"] or style.label or (linkKey | replace("_", " ") | capitalize) }}</a>
+          {% elif key == "pdf_label" %}
+          <a target="_blank" class="link" href="../generated/{{ resume.slug }}.pdf">{{ value }}</a>
+          {% else %}
+          <span>{% if not style %}{{ key | replace("_", " ") | capitalize }}: {% endif %}{{ value }}{% if key == "nationality" and profile.work_permit %}<br />{{ profile.work_permit }}{% endif %}</span>
+          {% endif %}
         </div>
-        <div id="place">
-          <a target="_blank" class="mention" aria-label="Earth icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/planete-terre_921490?term=terre&page=1&position=1&origin=tag&related_id=921490">
-            <img src="../assets/planete-terre.png" alt="" />
-          </a>
-          {{ profile.mobility }}
-        </div>
-        <div id="relocation">
-          <a target="_blank" class="mention" aria-label="Pin icon attribution" href="https://www.flaticon.com/free-icons/pin">
-            <img src="../assets/maps-and-flags.png" alt="" />
-          </a>
-          {{ profile.relocation }}
-        </div>
-        <div id="civility">
-          <a target="_blank" class="mention" aria-label="France icon attribution" href="https://www.flaticon.com/free-icons/france">
-            <img src="../assets/france.png" alt="" />
-          </a>
-          {{ profile.nationality }}<br />{{ profile.work_permit }}
-        </div>
-        <div id="phone">
-          <a target="_blank" class="mention" aria-label="Phone icon attribution" href="https://www.flaticon.com/fr/icones-gratuites/telephone">
-            <img src="../assets/appel-telephonique.png" alt="" />
-          </a>
-          {{ profile.phone }}
-        </div>
-        <div id="e-mail">
-          <a target="_blank" class="mention" aria-label="Email icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/email_3059474?term=email&page=1&position=7&origin=tag&related_id=3059474">
-            <img src="../assets/email.png" alt="" />
-          </a>
-          {{ profile.email }}
-        </div>
-        <div id="linkedin">
-          <a target="_blank" class="mention" aria-label="LinkedIn icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/sociale_14064516?term=linkedin&page=1&position=1&origin=tag&related_id=14064516">
-            <img src="../assets/linkedin.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="{{ profile.linkedin_url }}">{{ profile.linkedin_label }}</a>
-        </div>
-        <div id="github">
-          <a target="_blank" class="mention" aria-label="GitHub icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/github_4926624?term=github&page=1&position=1&origin=tag&related_id=4926624">
-            <img src="../assets/github.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="{{ profile.github_url }}">{{ profile.github_label }}</a>
-        </div>
-        <div id="resume-files">
-          <a target="_blank" class="mention" aria-label="Download icon attribution" href="https://www.flaticon.com/free-icon/download_724933">
-            <img src="../assets/download.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="../generated/{{ resume.slug }}.pdf">{{ profile.pdf_label }}</a>
-        </div>
+        {% endfor %}
       </div>
+      {% endif %}
+      {% for section in [
+        { id: "languages", entry: resume.languages, title: "Languages" },
+        { id: "skills", entry: resume.skills, title: "Skills" }
+      ] %}
+      {% if section.entry.content | trim %}
       <svg class="h-line" aria-hidden="true"><rect /></svg>
-      <div id="languages">
-        <div class="header">{{ languages.data.title }}</div>
-        <div class="body">{{ languages.content | safe }}</div>
+      <div id="{{ section.id }}">
+        <div class="header">{{ section.entry.data.title or section.title }}</div>
+        <div class="body">{{ section.entry.content | safe }}</div>
       </div>
-      <svg class="h-line" aria-hidden="true"><rect /></svg>
-      <div id="skills">
-        <div class="header">{{ skills.data.title }}</div>
-        <div class="body">{{ skills.content | safe }}</div>
-      </div>
+      {% endif %}
+      {% endfor %}
     </div>
     <div id="right-panel">
+      {% if profile.name or profile.title %}
       <div class="header">
-        <div id="name">{{ profile.name }}</div>
-        <div id="title">{{ profile.title }}</div>
+        {% for key in ["name", "title"] %}
+        {% if profile[key] %}<div id="{{ key }}">{{ profile[key] }}</div>{% endif %}
+        {% endfor %}
       </div>
+      {% endif %}
       <div class="body">
-        <div id="professional-summary">
-          <div class="header">{{ summary.data.title }}</div>
-          <div class="body">{{ summary.content | safe }}</div>
-        </div>
         {% for section in [
-          { id: "professional-experiences", title: profile.experience_title, entries: resume.experience, heading: "period" },
-          { id: "projects", title: profile.projects_title, entries: resume.projects, heading: "title" },
-          { id: "educations", title: profile.education_title, entries: resume.education, heading: "period" }
+          { id: "professional-summary", title: resume.summary.data.title or "Professional summary", entries: [resume.summary] },
+          { id: "professional-experiences", title: profile.experience_title or "Professional experiences", entries: resume.experience, heading: "period" },
+          { id: "projects", title: profile.projects_title or "Projects", entries: resume.projects, heading: "title" },
+          { id: "educations", title: profile.education_title or "Educations", entries: resume.education, heading: "period" },
+          { id: "centers-of-interest", title: resume.interests.data.title or "Centers of interest", entries: [resume.interests] }
         ] %}
+        {% set entries = section.entries | selectattr("content") %}
+        {% if entries.length %}
         <div id="{{ section.id }}">
           <div class="header">{{ section.title }}</div>
           <div class="body">
-            {% for entry in section.entries %}
+            {% for entry in entries %}
+            {% if section.heading %}
             <div class="list-element">
-              <div class="content-title">{{ entry.data[section.heading] }}</div>
+              {% if entry.data[section.heading] %}<div class="content-title">{{ entry.data[section.heading] }}</div>{% endif %}
               <div class="entry-content">{{ entry.content | safe }}</div>
             </div>
+            {% else %}
+            {{ entry.content | safe }}
+            {% endif %}
             {% endfor %}
           </div>
         </div>
+        {% endif %}
         {% endfor %}
-        <div id="centers-of-interest">
-          <div class="header">{{ interests.data.title }}</div>
-          <div class="body">{{ interests.content | safe }}</div>
-        </div>
       </div>
     </div>
   </body>

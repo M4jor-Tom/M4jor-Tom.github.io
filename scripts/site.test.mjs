@@ -92,6 +92,56 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
     assert.equal(await page.$eval('#professional-summary strong', el => el.textContent), 'updated marker');
     assert.deepEqual(failed, []);
 
+    // Optional fields drive the rows; new scalar fields need no template changes.
+    writeFileSync(profile, `---
+name: Optional fields fixture
+nationality: '   '
+work_permit: Permit only
+location: Lyon
+portfolio_url: https://example.com/portfolio
+custom_note: '<img src=x onerror="window.resumeInjected=true">'
+age:
+phone: ''
+linkedin_label: Orphan label
+empty_note:
+---
+`);
+    writeFileSync(summary, 'Summary without a title.\n');
+    writeFileSync(join(fixture, 'src/content_test_copy/languages.md'), '---\ntitle: Languages\n---\n');
+    writeFileSync(join(fixture, 'src/content_test_copy/skills.md'), '**Skills without a title.**\n');
+    writeFileSync(join(fixture, 'src/content_test_copy/interests.md'), '');
+    writeFileSync(earlier, '---\norder: 30\n---\n\nJob without a period.\n');
+    rmSync(join(fixture, 'src/content_test_copy/projects'), { recursive: true });
+    buildOK();
+    await open();
+    assert.equal(await page.title(), 'Optional fields fixture');
+    assert.deepEqual(await page.$$eval('#personal-data > div', rows => rows.map(row => row.id)),
+      ['civility', 'location', 'portfolio', 'custom_note']);
+    assert.equal(await page.$eval('#civility', el => el.textContent.trim()), 'Permit only');
+    assert.match(await page.$eval('#location', el => el.textContent), /Location:\s*Lyon/);
+    assert.equal(await page.$eval('#portfolio a.link', el => el.href), 'https://example.com/portfolio');
+    assert.equal(await page.$eval('#portfolio a.link', el => el.textContent), 'Portfolio');
+    assert.match(await page.$eval('#custom_note', el => el.textContent), /<img src=x/);
+    assert.equal(await page.evaluate(() => window.resumeInjected === undefined), true);
+    for (const selector of ['#photo', '#title', '#languages', '#projects', '#centers-of-interest',
+      'meta[name="description"]', 'meta[name="keywords"]', '#custom_note img', '#civility br']) {
+      assert.equal(await page.$(selector), null, `${selector} must not leave an empty element`);
+    }
+    assert.equal(await page.$$eval('#left-panel > .h-line', lines => lines.length), 1);
+    assert.equal(await page.$eval('#skills .header', el => el.textContent), 'Skills');
+    assert.equal(await page.$eval('#professional-summary .header', el => el.textContent), 'Professional summary');
+    assert.equal(await page.$eval('#professional-experiences .header', el => el.textContent), 'Professional experiences');
+    assert.deepEqual(await periods(), ['Later period']);
+    assert.match(await page.$eval('#professional-experiences', el => el.textContent), /Job without a period/);
+    assert.doesNotMatch(await page.$eval('#personal-data', el => el.textContent), /permalink|collections|page|Orphan label|undefined|null/);
+
+    writeFileSync(profile, '---\n---\n');
+    buildOK();
+    await open();
+    assert.equal(await page.title(), 'test_copy');
+    assert.equal(await page.$('#personal-data'), null);
+    assert.equal(await page.$('#right-panel > .header'), null);
+
     rmSync(join(fixture, 'src/content_test_copy'), { recursive: true });
     buildOK();
     assert.equal(existsSync(join(fixture, '_site/test_copy')), false, 'removed resumes must not remain published');

@@ -42,7 +42,9 @@ test('exports every resume as A4, discovers additions, preserves good PDFs on fa
       const box = contents.match(/\/MediaBox\s*\[0 0 ([\d.]+) ([\d.]+)\]/);
       assert.ok(box, 'must have a page size');
       assert.ok(Math.abs(Number(box[1]) - 595.28) < 1 && Math.abs(Number(box[2]) - 841.89) < 1, 'must be A4');
-      assert.ok([...contents.matchAll(/\/Subtype\s*\/Image\b/g)].length >= 10, 'must embed the photo and nine icons');
+      const html = readFileSync(join(fixture, `_site/${slug}/index.html`), 'utf8');
+      const images = new Set([...html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"/g)].map(match => match[1]));
+      assert.ok([...contents.matchAll(/\/Subtype\s*\/Image\b/g)].length >= images.size, 'must embed the visible photo/icons');
       assert.match(contents, /LiberationSans/, 'must embed the original metric-compatible font');
       assert.ok(contents.includes(`https://m4jor-tom.github.io/generated/${slug}.pdf`), 'PDF download link must be public, not a build-machine file URL');
       assert.deepEqual(readFileSync(join(fixture, `_site/generated/${slug}.pdf`)), pdf, 'Pages must serve the exported PDF bytes');

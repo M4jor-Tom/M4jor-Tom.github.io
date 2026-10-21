@@ -130,9 +130,7 @@ img {
 #left-panel {
 
 	display: grid;
-	grid-template-rows: 
-		repeat(2, min-content) /* photos, personnal-data */
-		repeat(2, 1px min-content); /* Languages, skills */
+	grid-auto-rows: min-content;
 	row-gap: .6vh;
 }
 
@@ -151,6 +149,11 @@ img {
 	font-size: var(--small-font);
 	align-items: center;
 	white-space: nowrap;
+}
+
+#left-panel > #personal-data > .plain-field {
+
+	grid-template-columns: 1fr;
 }
 
 #left-panel > #personal-data > #e-mail {

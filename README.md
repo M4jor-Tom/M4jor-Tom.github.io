@@ -51,6 +51,17 @@ and `- ` for bullet points. No HTML tags or trailing spaces are needed.
 Section titles are in front matter (between `---` lines);
 experience/project/education section titles are in `profile.md`.
 
+Profile fields are optional: delete a key or leave it empty to hide its row and
+icon. Rows follow front-matter order. New text/number fields (for example,
+`location: Lyon`) appear as label/value rows without template changes. A
+`portfolio_url` key becomes a link, optionally named by `portfolio_label`.
+Existing icons and the combined nationality/work-permit row are preserved.
+Name, title, photo, page metadata, `*_title` and companion `*_label` keys are
+handled separately, not printed as contact rows; `pdf_label` controls the PDF
+link. Missing section titles use defaults, missing entry headings are omitted,
+and empty section bodies or entry directories are hidden. The five top-level
+Markdown files themselves are still required.
+
 To add a job, copy an existing experience file and edit its metadata and body:
 
 ```markdown

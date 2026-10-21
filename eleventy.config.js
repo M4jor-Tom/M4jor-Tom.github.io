@@ -9,7 +9,7 @@ export default function (eleventyConfig) {
   eleventyConfig.on('eleventy.before', () => rmSync(new URL('./_site/', import.meta.url), { recursive: true, force: true }));
   eleventyConfig.addPassthroughCopy('styles.css');
   eleventyConfig.addPassthroughCopy('assets');
-  eleventyConfig.addCollection('resumes', api => discoverResumes(root).map(slug => {
+  eleventyConfig.addCollection('resumes', async api => Promise.all(discoverResumes(root).map(async slug => {
     const resume = { slug };
     for (const name of ['profile', 'summary', 'languages', 'skills', 'interests']) {
       const path = `src/content_${slug}/${name}.md`;
@@ -20,8 +20,16 @@ export default function (eleventyConfig) {
       resume[name] = api.getFilteredByGlob(`src/content_${slug}/${name}/*.md`)
         .sort((a, b) => a.data.order - b.data.order);
     }
+    // Use authored front matter, not Eleventy's merged data (page, collections, etc.).
+    resume.profileData = Object.fromEntries(Object.entries((await resume.profile.template.read()).data)
+      .filter(([, value]) => typeof value !== 'string' || value.trim() !== ''));
+    resume.fields = Object.entries(resume.profileData).filter(([key, value]) =>
+      (typeof value === 'string' || typeof value === 'number') &&
+      !['name', 'title', 'photo', 'description', 'keywords', 'layout', 'permalink'].includes(key) &&
+      !key.endsWith('_title') && (!key.endsWith('_label') || key === 'pdf_label') &&
+      !(key === 'work_permit' && resume.profileData.nationality));
     return resume;
-  }));
+  })));
   return {
     dir: { input: 'src', output: '_site' },
     templateFormats: ['md', 'njk'],
