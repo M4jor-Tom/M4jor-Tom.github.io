@@ -6,11 +6,7 @@ description: Resume of Tom Vautray, Software Development Engineer. Skills in Rea
 keywords: Tom Vautray, Resume, Software Engineer, React, Angular, Rust, Nix, Git, GitHub
 photo: assets/PhotoLMGCouleursCrop.jpg
 age: 27 years old
-mobility: International mobility
-relocation: Open to Relocation
-nationality: French Nationality
-work_permit: (EU Work Permit Ready)
-phone: "+33 6 26 25 64 93"
+phone: "06 26 25 64 93"
 email: tom-vautray@hotmail.fr
 linkedin_label: Linkedin (link)
 linkedin_url: https://www.linkedin.com/in/tom-vautray-45432b172/

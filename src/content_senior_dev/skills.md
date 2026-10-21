@@ -6,8 +6,8 @@ title: Skills
 
 | Duration | Skill |
 | --- | --- |
-| 9 mo | TypeScript **Angular** |
-| 9 mo | TypeScript **React** |
+| 1 yr | TypeScript **Angular** |
+| 1 yr | TypeScript **React** |
 | 9 mo | MobX |
 | 9 mo | DeckGL |
 | 3 mo | ThreeJS |
@@ -25,6 +25,7 @@ title: Skills
 | 1 yr | C++ |
 | 1.5 yrs | PostgreSQL&nbsp;&&nbsp;MySQL |
 | 1 yr | PHP |
+| 6 mo | Rust |
 
 ### DevOps
 
@@ -33,10 +34,9 @@ title: Skills
 | 2 yrs | **Git**Flow |
 | 1 yr | **Git** CLI |
 | 2 yrs | **Git**Kraken |
-| 3 mo | **Git**Hub Actions & CI/CD |
+| 3 mo | **Git**Hub Actions |
+| 3 mo | **Git**Lab CI |
 | 8 mo | **Docker**&nbsp;&&nbsp;Kubernetes |
-| 9 mo | **CI/CD & Shell** scripting |
-| 9 mo | **Nexus** administration |
 
 ### AI / Data
 
