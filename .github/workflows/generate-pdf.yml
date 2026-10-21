@@ -1,4 +1,4 @@
-name: Resume
+name: Resumes
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - uses: cachix/install-nix-action@v31.11.2
       - name: Install dependencies
         run: nix develop -c npm ci
-      - name: Build and check the resume
+      - name: Build and check all resumes
         run: nix develop -c npm test
       - name: Export the verified site
         run: nix develop -c node scripts/generate-pdf.mjs
@@ -31,12 +31,12 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: _site
-      - name: Upload PDF
+      - name: Upload PDFs
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v7
         with:
-          name: resume-pdf
-          path: generated/Tom_Vautray_Software_Engineer_Resume.pdf
+          name: resume-pdfs
+          path: generated/*.pdf
           if-no-files-found: error
 
   deploy-pages:
@@ -64,13 +64,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v8
         with:
-          name: resume-pdf
+          name: resume-pdfs
           path: generated
-      - name: Publish PDF
+      - name: Publish PDFs
         run: |
           git config user.name 'Tom Vautray'
           git config user.email 'tom-vautray@hotmail.fr'
           git checkout -B pdf-cv-releasing
-          git add -f generated/Tom_Vautray_Software_Engineer_Resume.pdf
-          git diff --cached --quiet || git commit -m "chore: regenerate resume PDF"
+          git add -f generated/
+          git diff --cached --quiet || git commit -m "chore: regenerate resume PDFs"
           git push --force origin HEAD:pdf-cv-releasing

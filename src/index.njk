@@ -2,126 +2,35 @@
 permalink: index.html
 eleventyExcludeFromCollections: true
 ---
-{% set profile = collections.profile[0].data %}
-{% set summary = collections.summary[0] %}
-{% set languages = collections.languages[0] %}
-{% set skills = collections.skills[0] %}
-{% set interests = collections.interests[0] %}
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <base target="_blank" />
-    <meta name="description" content="{{ profile.description }}">
-    <meta name="keywords" content="{{ profile.keywords }}">
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tom Vautray — Résumés</title>
     <link rel="icon" href="assets/planete-terre.png" />
-    <title>{{ profile.document_title }}</title>
+    <style>
+      body { max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; font-family: Arial, sans-serif; line-height: 1.6; color: #103056; }
+      ul { padding: 0; list-style: none; }
+      li { margin: 1rem 0; padding: 1rem; background: #f0f4f8; border-radius: .5rem; }
+      a { color: #17499b; text-underline-offset: .2em; }
+      a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+      .resume-name { display: block; font-size: 1.25rem; text-transform: capitalize; overflow-wrap: anywhere; }
+    </style>
   </head>
-  <body theme="navy" mapping="pdf">
-    <div id="left-panel">
-      <div id="photo">
-        <img src="{{ profile.photo }}" alt="Portrait of {{ profile.name }}" />
-      </div>
-      <div id="personal-data">
-        <div id="aging">
-          <a target="_blank" class="mention" aria-label="Birthday icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/happy-birthday_8675274?term=birthday&page=1&position=5&origin=search&related_id=8675274">
-            <img src="assets/happy-birthday.png" alt="" />
-          </a>
-          {{ profile.age }}
-        </div>
-        <div id="place">
-          <a target="_blank" class="mention" aria-label="Earth icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/planete-terre_921490?term=terre&page=1&position=1&origin=tag&related_id=921490">
-            <img src="assets/planete-terre.png" alt="" />
-          </a>
-          {{ profile.mobility }}
-        </div>
-        <div id="relocation">
-          <a target="_blank" class="mention" aria-label="Pin icon attribution" href="https://www.flaticon.com/free-icons/pin">
-            <img src="assets/maps-and-flags.png" alt="" />
-          </a>
-          {{ profile.relocation }}
-        </div>
-        <div id="civility">
-          <a target="_blank" class="mention" aria-label="France icon attribution" href="https://www.flaticon.com/free-icons/france">
-            <img src="assets/france.png" alt="" />
-          </a>
-          {{ profile.nationality }}<br />{{ profile.work_permit }}
-        </div>
-        <div id="phone">
-          <a target="_blank" class="mention" aria-label="Phone icon attribution" href="https://www.flaticon.com/fr/icones-gratuites/telephone">
-            <img src="assets/appel-telephonique.png" alt="" />
-          </a>
-          {{ profile.phone }}
-        </div>
-        <div id="e-mail">
-          <a target="_blank" class="mention" aria-label="Email icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/email_3059474?term=email&page=1&position=7&origin=tag&related_id=3059474">
-            <img src="assets/email.png" alt="" />
-          </a>
-          {{ profile.email }}
-        </div>
-        <div id="linkedin">
-          <a target="_blank" class="mention" aria-label="LinkedIn icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/sociale_14064516?term=linkedin&page=1&position=1&origin=tag&related_id=14064516">
-            <img src="assets/linkedin.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="{{ profile.linkedin_url }}">{{ profile.linkedin_label }}</a>
-        </div>
-        <div id="github">
-          <a target="_blank" class="mention" aria-label="GitHub icon attribution" href="https://www.flaticon.com/fr/icone-gratuite/github_4926624?term=github&page=1&position=1&origin=tag&related_id=4926624">
-            <img src="assets/github.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="{{ profile.github_url }}">{{ profile.github_label }}</a>
-        </div>
-        <div id="resume-files">
-          <a target="_blank" class="mention" aria-label="Download icon attribution" href="https://www.flaticon.com/free-icon/download_724933">
-            <img src="assets/download.png" alt="" />
-          </a>
-          <a target="_blank" class="link" href="{{ profile.pdf_url }}">{{ profile.pdf_label }}</a>
-        </div>
-      </div>
-      <svg class="h-line" aria-hidden="true"><rect /></svg>
-      <div id="languages">
-        <div class="header">{{ languages.data.title }}</div>
-        <div class="body">{{ languages.content | safe }}</div>
-      </div>
-      <svg class="h-line" aria-hidden="true"><rect /></svg>
-      <div id="skills">
-        <div class="header">{{ skills.data.title }}</div>
-        <div class="body">{{ skills.content | safe }}</div>
-      </div>
-    </div>
-    <div id="right-panel">
-      <div class="header">
-        <div id="name">{{ profile.name }}</div>
-        <div id="title">{{ profile.title }}</div>
-      </div>
-      <div class="body">
-        <div id="professional-summary">
-          <div class="header">{{ summary.data.title }}</div>
-          <div class="body">{{ summary.content | safe }}</div>
-        </div>
-        {% for section in [
-          { id: "professional-experiences", title: profile.experience_title, entries: collections.experience, heading: "period" },
-          { id: "projects", title: profile.projects_title, entries: collections.projects, heading: "title" },
-          { id: "educations", title: profile.education_title, entries: collections.education, heading: "period" }
-        ] %}
-        <div id="{{ section.id }}">
-          <div class="header">{{ section.title }}</div>
-          <div class="body">
-            {% for entry in section.entries %}
-            <div class="list-element">
-              <div class="content-title">{{ entry.data[section.heading] }}</div>
-              <div class="entry-content">{{ entry.content | safe }}</div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
+  <body>
+    <main>
+      <h1>Tom Vautray</h1>
+      <p>Résumés — view online or download a PDF.</p>
+      <ul>
+        {% for resume in collections.resumes %}
+        {% set label = resume.slug | replace("_", " ") | replace("-", " ") %}
+        <li>
+          <a class="resume-name" href="{{ resume.slug }}/">{{ label }}</a>
+          <a href="generated/{{ resume.slug }}.pdf" download aria-label="Download {{ label }} résumé as PDF">Download PDF</a>
+        </li>
         {% endfor %}
-        <div id="centers-of-interest">
-          <div class="header">{{ interests.data.title }}</div>
-          <div class="body">{{ interests.content | safe }}</div>
-        </div>
-      </div>
-    </div>
+      </ul>
+    </main>
   </body>
 </html>

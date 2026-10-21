@@ -17,7 +17,6 @@ linkedin_url: https://www.linkedin.com/in/tom-vautray-45432b172/
 github_label: GitHub (link)
 github_url: https://github.com/M4jor-Tom
 pdf_label: Latest PDF Resume (link)
-pdf_url: https://github.com/M4jor-Tom/M4jor-Tom.github.io/tree/pdf-cv-releasing/generated
 experience_title: Professional experiences
 projects_title: Projects
 education_title: Educations

@@ -1,28 +1,54 @@
-# Resume
+# Résumés
 
-Edit the Markdown files in [`src/content/`](src/content/), not HTML. Eleventy
-combines them with `src/index.njk` to generate the website and PDF.
+Edit Markdown in `src/content_*/`, not HTML. Eleventy discovers each résumé
+folder and combines it with the shared `src/resume.njk` layout. One GitHub Pages
+site serves independent résumé URLs and a small link index at `/`.
+
+| Content directory | Web résumé | PDF |
+| --- | --- | --- |
+| [`src/content_internationnal/`](src/content_internationnal/) | [/internationnal/](https://m4jor-tom.github.io/internationnal/) | [/generated/internationnal.pdf](https://m4jor-tom.github.io/generated/internationnal.pdf) |
+| [`src/content_senior_dev/`](src/content_senior_dev/) | [/senior_dev/](https://m4jor-tom.github.io/senior_dev/) | [/generated/senior_dev.pdf](https://m4jor-tom.github.io/generated/senior_dev.pdf) |
+
+Both initially contain the same résumé; edit either independently.
+
+## Adding a résumé
+
+Copy a complete existing directory and edit its Markdown:
+
+```sh
+cp -r src/content_internationnal src/content_my_resume
+```
+
+The next build adds `/my_resume/` and its index link. PDF generation adds
+`generated/my_resume.pdf`, served at `/generated/my_resume.pdf`. No registration,
+template edit, or workflow change is needed. Renaming/removing a source directory
+removes the old page on the next build and the old PDFs after a successful export.
+
+Names after `content_` must be lowercase letters/digits with `_` or `-` between
+words. `assets` and `generated` are reserved. The spelling is preserved in URLs.
+Keep the five top-level Markdown files; a missing file fails the build with its
+path. Experience, project, and education entries remain in their subdirectories.
 
 ## Editing from your phone
 
 Open a content file on GitHub, choose **Edit**, change the text, and commit it.
-After the feature is merged and Pages is configured below, commits to `master`
-automatically rebuild and publish the website and PDF.
+Commits to `master` automatically rebuild and publish every résumé and PDF once
+Pages is configured below. These paths are relative to each résumé directory:
 
 | Content | File |
 | --- | --- |
-| Name, title, contact details, photo and page metadata | `src/content/profile.md` |
-| Professional summary | `src/content/summary.md` |
-| Skills and durations | `src/content/skills.md` |
-| Languages and proficiency | `src/content/languages.md` |
-| Interests | `src/content/interests.md` |
-| Work experience | One file per job in `src/content/experience/` |
-| Projects | One file per project in `src/content/projects/` |
-| Education | One file per qualification in `src/content/education/` |
+| Name, title, contact details, photo and page metadata | `profile.md` |
+| Professional summary | `summary.md` |
+| Skills and durations | `skills.md` |
+| Languages and proficiency | `languages.md` |
+| Interests | `interests.md` |
+| Work experience | One file per job in `experience/` |
+| Projects | One file per project in `projects/` |
+| Education | One file per qualification in `education/` |
 
 Use `**bold text**`, `[link label](https://example.com)`, normal paragraphs,
 and `- ` for bullet points. No HTML tags or trailing spaces are needed.
-Section titles are in each file's front matter (between `---` lines);
+Section titles are in front matter (between `---` lines);
 experience/project/education section titles are in `profile.md`.
 
 To add a job, copy an existing experience file and edit its metadata and body:
@@ -52,15 +78,17 @@ add or edit data rows:
 | 9 mo | TypeScript **Angular** |
 ```
 
-The existing `&nbsp;` entities in a few skill names keep those phrases together,
-matching the original layout. Keep them unless you intend to change wrapping.
-Content is trusted, repository-authored Markdown, not untrusted user submissions.
+The existing `&nbsp;` entities keep phrases together. Keep them unless you intend
+to change wrapping. Content is trusted, repository-authored Markdown, not
+untrusted user submissions. Photos use root-relative source paths such as
+`assets/PhotoLMGCouleursCrop.jpg`; assets and résumé styles are shared. PDF links
+are generated from the directory name; there is no `pdf_url` to maintain.
 
-## Local preview and PDF
+## Local preview and PDFs
 
 Requires Nix with flakes enabled on x86_64 Linux. Node.js, Chromium and Liberation
-Sans fonts remain pinned by `flake.lock`; no system Node installation or separate
-browser download is needed.
+Sans remain pinned by `flake.lock`; no system Node or separate browser download
+is needed.
 
 ```sh
 # First checkout (or after package-lock.json changes):
@@ -69,33 +97,45 @@ nix develop -c npm ci
 # Rebuilding browser preview at http://localhost:8080:
 nix develop -c npm run dev
 
-# Generate the static website in _site/:
+# Generate all pages in _site/:
 nix develop -c npm run build
 
-# Build and run the site/PDF regression checks:
+# Build and run site/PDF regression checks:
 nix develop -c npm test
 
-# Rebuild the website and export the current PDF:
+# Rebuild the website and export ALL PDFs:
 nix develop -c npm run pdf
-xdg-open generated/Tom_Vautray_Software_Engineer_Resume.pdf
+xdg-open generated/internationnal.pdf
+xdg-open generated/senior_dev.pdf
 ```
 
-Alternatively, enter `nix develop` once and run the npm commands inside that shell.
+Alternatively, enter `nix develop` once and run npm commands inside that shell.
 `_site/`, `generated/` and `node_modules/` are generated and stay out of Git.
-The layout is maintained in `src/index.njk` and `styles.css`; routine content
-editing does not require opening either file.
+The résumé layout is in `src/resume.njk` and `styles.css`; the minimal index is
+`src/index.njk`. Routine content edits do not require opening these files.
 
-PDF export keeps A4, 10 mm margins, print colors and the original layout. It waits
-for local images and fonts and rejects missing assets without overwriting the
-last good PDF. Host fonts are excluded so local and CI output use the same metrics.
-The exporter can also process an already-built site from any working directory
+A site build clears `_site/`, including previously exported download copies.
+The dev server rebuilds HTML, not PDFs on every edit: run `npm run pdf` through
+Nix after content changes to prepare current downloads. After deleting a résumé
+folder, restart the dev server or run a build: Eleventy 3.1.7 does not rebuild on
+deletions alone. Local exports remain in
+`generated/`, and identical copies are placed in `_site/generated/` for Pages.
+The exporter can also process an already-built site from another working directory
 by invoking `scripts/generate-pdf.mjs` through Nix using its absolute path.
 
-Content growth can overflow the one-page resume. Inspect the PDF before publishing;
-the tests enforce one page, rather than silently shrinking text. Tests also check
-Markdown rendering, links, edits and ordering, escaped profile fields, embedded
-images/fonts and export failure handling. Ordinary content changes do not require
-updating a frozen resume snapshot.
+PDF export keeps A4, 10 mm margins, print colors and the original layout. It waits
+for local images/fonts and rejects missing assets. Every résumé is rendered before
+any previous PDF is overwritten or removed; a render failure preserves the last
+good local PDF set and fails publication. Host fonts are excluded so local and CI
+output use the same metrics. PDF hyperlinks use public site URLs, not build-machine
+file paths.
+
+Content growth can overflow a one-page résumé. Inspect PDFs before publishing;
+the tests enforce one page rather than silently shrinking text. Tests cover every
+current résumé, a third copied directory, isolated content, Markdown rendering,
+links, edits/ordering, escaped profile fields, invalid directories, embedded
+images/fonts, removals, and export failure handling. Ordinary content changes do
+not require updating a frozen snapshot.
 
 ## Publishing
 
@@ -103,15 +143,11 @@ One-time setup: in GitHub repository **Settings → Pages → Build and deployme
 set **Source** to **GitHub Actions**. This is a user site (`M4jor-tom.github.io`),
 so no repository-name URL prefix is needed.
 
-The feature includes the prerequisite Nix/PDF-tooling history. Merge the complete
-feature, not just the template changes, before expecting the workflow on `master`.
-Local implementation and checks do not change the Pages setting or deploy the site.
+On pushes to `master`, `.github/workflows/generate-pdf.yml` builds and checks all
+résumés inside Nix, then exports their PDFs from the verified site. Separate jobs
+publish `_site/` (including its PDFs) to GitHub Pages and all named PDFs to the
+existing `pdf-cv-releasing` branch under `generated/`.
 
-On pushes to `master`, `.github/workflows/generate-pdf.yml` builds and checks the
-resume inside Nix, then exports the PDF from the verified site. Separate jobs
-publish `_site/` to GitHub Pages and retain the existing PDF destination:
-
-- Branch: `pdf-cv-releasing`
-- File: `generated/Tom_Vautray_Software_Engineer_Resume.pdf`
-
-Pull requests run checks only; they cannot deploy or push the PDF branch.
+The old `Tom_Vautray_Software_Engineer_Resume.pdf` filename is replaced by the
+named PDFs. Pull requests run checks only; they cannot deploy or push the PDF
+branch. Local checks do not change the Pages setting or deploy the site.
