@@ -3,10 +3,9 @@ order: 1
 period: "2022 - now"
 ---
 
-**Senior** Software Engineer | **Thales**
+**Full-Stack Software Engineer** | **Thales**
 
-- Worked with the **Specification-Diven Development** approach on Gen-AI-powered projects
-- Worked on several critical projects involving **Architecture**, **Software Design**, **AGILE**, **React**, **Angular** and **Go**
-- Developed a regression testing application using Shell scripting, **Spring Boot**, Angular, **Docker** & Jacoco
-- Frontend Development: TypeScript **React** project with MobX & DeckGL, and several TypeScript **Angular** projects
-- Working in a teams with **AGILE** method
+- Clarify requirements; develop features with **Java/Spring Boot, Angular and React**.
+- Review all **AI-generated code**, simplify complexity and correct code placement.
+- Review technical/functional changes; defend choices with tech lead and maintainers.
+- Validate with **manual testing**; setup CI to un automated tests
