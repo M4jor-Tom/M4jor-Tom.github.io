@@ -7,7 +7,7 @@ site serves independent résumé URLs and a small link index at `/`.
 | Content directory | Web résumé | PDF |
 | --- | --- | --- |
 | [`src/content_internationnal/`](src/content_internationnal/) | [/internationnal/](https://m4jor-tom.github.io/internationnal/) | [/generated/internationnal.pdf](https://m4jor-tom.github.io/generated/internationnal.pdf) |
-| [`src/content_senior_dev/`](src/content_senior_dev/) | [/senior_dev/](https://m4jor-tom.github.io/senior_dev/) | [/generated/senior_dev.pdf](https://m4jor-tom.github.io/generated/senior_dev.pdf) |
+| [`src/content_full_stack_france_dev/`](src/content_full_stack_france_dev/) | [/full_stack_france_dev/](https://m4jor-tom.github.io/full_stack_france_dev/) | [/generated/full_stack_france_dev.pdf](https://m4jor-tom.github.io/generated/full_stack_france_dev.pdf) |
 
 Both initially contain the same résumé; edit either independently.
 
@@ -117,7 +117,7 @@ nix develop -c npm test
 # Rebuild the website and export ALL PDFs:
 nix develop -c npm run pdf
 xdg-open generated/internationnal.pdf
-xdg-open generated/senior_dev.pdf
+xdg-open generated/full_stack_france_dev.pdf
 ```
 
 Alternatively, enter `nix develop` once and run npm commands inside that shell.

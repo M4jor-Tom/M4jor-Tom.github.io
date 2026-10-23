@@ -36,7 +36,7 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
       assert.equal(result.status, 0, result.stdout + result.stderr);
     };
     buildOK();
-    for (const slug of ['internationnal', 'senior_dev', 'test_copy']) {
+    for (const slug of ['internationnal', 'full_stack_france_dev', 'test_copy']) {
       assert.equal(existsSync(join(fixture, `_site/${slug}/index.html`)), true, `missing page for ${slug}`);
       assert.deepEqual(readdirSync(join(fixture, `_site/${slug}`)), ['index.html']);
       assert.equal(existsSync(join(fixture, `_site/content_${slug}`)), false, 'Markdown inputs must not be published');
@@ -52,7 +52,7 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
     const periods = () => page.$$eval('#professional-experiences .content-title', entries => entries.map(el => el.textContent.trim()));
     await open('index.html');
     const links = await page.$$eval('a', links => links.map(link => link.getAttribute('href')));
-    for (const slug of ['internationnal', 'senior_dev', 'test_copy']) {
+    for (const slug of ['internationnal', 'full_stack_france_dev', 'test_copy']) {
       assert.ok(links.includes(`${slug}/`));
       assert.ok(links.includes(`generated/${slug}.pdf`));
     }
@@ -76,7 +76,7 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
       return box.width <= 1.01 && box.height <= 1.01 && getComputedStyle(header).clipPath !== 'none';
     })), true, 'table headers must stay visually clipped');
 
-    for (const slug of ['internationnal', 'senior_dev']) {
+    for (const slug of ['internationnal', 'full_stack_france_dev']) {
       await open(`${slug}/index.html`);
       assert.notEqual(await page.$eval('#name', el => el.textContent.trim()), name);
       assert.doesNotMatch(await page.$eval('#professional-summary', el => el.textContent), /bold marker/);
@@ -157,12 +157,12 @@ empty_note:
       rmSync(invalid, { recursive: true });
     }
     for (const filename of ['profile.md', 'summary.md']) {
-      const source = join(fixture, 'src/content_senior_dev', filename);
+      const source = join(fixture, 'src/content_full_stack_france_dev', filename);
       const original = readFileSync(source);
       rmSync(source);
       const result = build();
       assert.notEqual(result.status, 0);
-      assert.ok((result.stdout + result.stderr).includes(`Missing src/content_senior_dev/${filename}`));
+      assert.ok((result.stdout + result.stderr).includes(`Missing src/content_full_stack_france_dev/${filename}`));
       writeFileSync(source, original);
     }
     for (const entry of readdirSync(join(fixture, 'src'), { withFileTypes: true })) {
