@@ -8,4 +8,4 @@ period: "2022 - now"
 - Clarify requirements; develop features with **Java/Spring Boot, Angular and React**.
 - Review all **AI-generated code**, simplify complexity and correct code placement.
 - Review technical/functional changes; defend choices with tech lead and maintainers.
-- Validate with **manual testing**; setup CI to un automated tests
+- Validate with **manual testing**; setup CI to run automated tests
