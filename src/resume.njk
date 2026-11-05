@@ -96,7 +96,7 @@ eleventyExcludeFromCollections: true
             {% for entry in entries %}
             {% if section.heading %}
             <div class="list-element">
-              {% if entry.data[section.heading] %}<div class="content-title">{{ entry.data[section.heading] }}</div>{% endif %}
+              {% if entry.data[section.heading] or entry.data.subtitle %}<div class="content-title">{{ entry.data[section.heading] or "" }}{% if entry.data.subtitle %}<span class="subtitle">{{ entry.data.subtitle }}</span>{% endif %}</div>{% endif %}
               <div class="entry-content">{{ entry.content | safe }}</div>
             </div>
             {% else %}

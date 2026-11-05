@@ -29,6 +29,8 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
     writeFileSync(join(experience, 'a-later.md'), '---\norder: 20\nperiod: "Later period"\n---\n\nLater job.\n');
     const earlier = join(experience, 'z-earlier.md');
     writeFileSync(earlier, '---\norder: 10\nperiod: "Earlier period"\n---\n\nEarlier job.\n');
+    const education = join(fixture, 'src/content_test_copy/education/isen.md');
+    writeFileSync(education, readFileSync(education, 'utf8').replace('period:', 'subtitle: Subtitle marker\nperiod:'));
 
     const build = () => spawnSync('npm', ['run', 'build'], { cwd: fixture, encoding: 'utf8', timeout: 60_000 });
     const buildOK = () => {
@@ -66,6 +68,7 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
     assert.equal(await page.$eval('#professional-summary a', el => el.href), 'https://example.com/profile');
     assert.equal(await page.$eval('#resume-files a.link', el => el.getAttribute('href')), '../generated/test_copy.pdf');
     assert.deepEqual(await periods(), ['Earlier period', 'Later period']);
+    assert.equal(await page.$eval('#educations .content-title .subtitle', el => el.textContent), 'Subtitle marker');
     assert.equal(await page.$eval('#name', el => el.textContent.trim()), name);
     assert.equal(await page.evaluate(() => document.querySelector('#name img') === null && window.resumeInjected === undefined), true);
     assert.equal(await page.evaluate(() => [...document.querySelectorAll('a')].every(link =>

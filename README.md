@@ -83,7 +83,8 @@ period: "2022 - now"
 
 Give entries unique numeric `order` values: lower numbers appear first, regardless
 of filenames or timestamps. Quote periods as shown. Education uses the same
-format; projects use `title` instead of `period`.
+format; projects use `title` instead of `period`. An optional `subtitle` is shown
+smaller on the same line, after the period or title.
 
 Skills and languages use Markdown tables. Keep the header/separator rows and
 add or edit data rows:

@@ -1,9 +1,8 @@
 ---
 order: 1
 period: "2019 - 2022"
+subtitle: Engineer by apprenticeship
 ---
-
-**Engineer** by apprenticeship
 
 **Master's Degree in Engineering**, specialized in Industrial IT from **ISEN**,
 

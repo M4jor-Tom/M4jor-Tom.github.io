@@ -1,9 +1,8 @@
 ---
 order: 2
 period: "2017 - 2019"
+subtitle: Aix-Marseille University (AMU)
 ---
-
-**Aix-Marseille University (AMU):**
 
 French diploma comparable to an **Associate Degree** in Electrical
 

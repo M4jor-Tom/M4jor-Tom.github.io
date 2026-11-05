@@ -216,6 +216,17 @@ img {
 	font-weight: bold;
 }
 
+#educations .content-title {
+
+	margin-bottom: .4vh;
+}
+
+.content-title > .subtitle {
+
+	margin-left: 1.5ch;
+	font-size: var(--small-font);
+}
+
 .entry-content p,
 #professional-summary p,
 #centers-of-interest ul,

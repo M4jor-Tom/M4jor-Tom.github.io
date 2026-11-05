@@ -10,4 +10,4 @@ period: "2022 - now"
 - Create tools for dev team in **Rust (+iced), Nix**.
 - Review all **AI-generated code**, simplify complexity and correct code placement.
 - Review technical/functional changes; defend choices with tech lead and maintainers.
-- Validate with **manual testing**; setup CI to run automated tests
+- Ensure **tests unicity**; setup CI to run automated tests

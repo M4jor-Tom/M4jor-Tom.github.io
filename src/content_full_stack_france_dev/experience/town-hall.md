@@ -5,5 +5,5 @@ period: "2019"
 
 Software developer | **La Croix-Valmer's Town Hall**
 
-- WAMP/PHP - Ticketing Software
+- **Database** engineering & monolith development
 - Direct interaction with a non-technical client
