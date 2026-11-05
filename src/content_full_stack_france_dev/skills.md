@@ -2,6 +2,13 @@
 title: Skills
 ---
 
+### Software Conception
+
+| Duration | Skill |
+| --- | --- |
+| 2 yr | **Domain-driven** dev. |
+| 6 mo | **Spec-driven** dev. |
+
 ### Frontend
 
 | Duration | Skill |
@@ -16,27 +23,25 @@ title: Skills
 
 | Duration | Skill |
 | --- | --- |
-| 3 yrs | **Design patterns** |
+| 1 yr | **Rust** (I love it) |
+| 6 mo | **Go** |
 | 3 yrs | **Java**&nbsp;&&nbsp;**Spring-Boot** |
 | 3 yrs | **REST APIs** |
-| 4 mo | **Microservices** |
+| 1 yr | **Microservices** |
 | 6 mo | JHipster |
 | 8 mo | Python |
 | 1 yr | C++ |
 | 1.5 yrs | PostgreSQL&nbsp;&&nbsp;MySQL |
 | 1 yr | PHP |
-| 6 mo | Rust |
 
 ### DevOps
 
 | Duration | Skill |
 | --- | --- |
-| 2 yrs | **Git**Flow |
-| 1 yr | **Git** CLI |
-| 2 yrs | **Git**Kraken |
-| 3 mo | **Git**Hub Actions |
-| 3 mo | **Git**Lab CI |
-| 8 mo | **Docker**&nbsp;&&nbsp;Kubernetes |
+| 5 yrs | **Git** |
+| 6 mo | **Git**Hub Actions |
+| 6 mo | **Git**Lab CI |
+| 1 yr | **Docker**&nbsp;&&nbsp;Kubernetes |
 
 ### AI / Data
 

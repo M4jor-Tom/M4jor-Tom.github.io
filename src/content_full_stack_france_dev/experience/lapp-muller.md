@@ -12,3 +12,4 @@ Software developer: WAMP/PHP Create/Read/Update/delete (CRUD) app
 ISEN ITII Apprentice at **Lapp Muller**
 
 - Programming a solution for a specific need (designing cables)
+- **Domain-driven** development with JHipster
