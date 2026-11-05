@@ -1,0 +1,57 @@
+---
+permalink: certificates/index.html
+eleventyExcludeFromCollections: true
+certificates:
+  - name: AI Agents Course - Unit 1
+    issuer: Hugging Face
+    url: https://agents-course-unit-1-quiz.hf.space/gradio_api/file=/tmp/gradio/1f3a0f5fed6d7fb727ca0ddd76f7643b088f78f107ec2423db9e717fe49b7fe7/image.webp
+  - name: Rust Fundamentals
+    issuer: Coursera
+    url: https://www.coursera.org/account/accomplishments/verify/4JBBHUJ76QKX
+  - name: Rust Programming Essentials
+    issuer: Coursera
+    url: https://www.coursera.org/account/accomplishments/verify/W7WV49L78WWB
+  - name: Getting Started with Go
+    issuer: Coursera
+    url: https://www.coursera.org/account/accomplishments/verify/QGBXKQGAK306
+  - name: Functions, Methods, and Interfaces in Go
+    issuer: Coursera
+    url: https://www.coursera.org/account/accomplishments/verify/IAL2HTFI6G36
+  - name: Concurrency in Go
+    issuer: Coursera
+    url: https://www.coursera.org/account/accomplishments/verify/G0P6R87JSHZI
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tom Vautray - Certificates</title>
+    <link rel="icon" href="../assets/planete-terre.png" />
+    <style>
+      body { max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; font-family: Arial, sans-serif; line-height: 1.6; color: #103056; text-align: center; }
+      ul { padding: 0; list-style: none; }
+      li { margin: 1rem 0; }
+      a { display: block; padding: 1rem; background: #f0f4f8; border-radius: .5rem; color: #17499b; text-decoration: none; }
+      a:hover { background: #dde6f0; }
+      a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+      .name { display: block; font-size: 1.125rem; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Tom Vautray</h1>
+      <p>Certificates</p>
+      <ul>
+        {% for certificate in certificates %}
+        <li>
+          <a href="{{ certificate.url }}" target="_blank">
+            <span class="name">{{ certificate.name }}</span>
+            {{ certificate.issuer }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>

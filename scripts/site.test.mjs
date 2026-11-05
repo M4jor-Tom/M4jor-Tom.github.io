@@ -83,6 +83,11 @@ test('discovers independent resumes, links their PDFs, and rebuilds Markdown edi
       assert.ok(!(await periods()).includes('Earlier period'), 'experience must not leak between resumes');
       assert.equal(await page.$eval('#resume-files a.link', el => el.getAttribute('href')), `../generated/${slug}.pdf`);
     }
+    await open('full_stack_france_dev/index.html');
+    assert.ok(await page.$('#skills a[href="../certificates/"]'), 'skills must link to the certificates link-tree');
+    await open('certificates/index.html');
+    const certificateLinks = await page.$$eval('main a', links => links.map(link => link.href));
+    assert.ok(certificateLinks.length && certificateLinks.every(href => href.startsWith('https://')), 'certificates link-tree must list public links');
 
     writeFileSync(earlier, readFileSync(earlier, 'utf8').replace('order: 10', 'order: 30'));
     writeFileSync(summary, readFileSync(summary, 'utf8').replace('bold marker', 'updated marker'));
@@ -148,7 +153,7 @@ empty_note:
     await open('index.html');
     assert.equal(await page.$('a[href="test_copy/"]'), null);
 
-    for (const slug of ['', 'Bad Name', 'assets', 'generated']) {
+    for (const slug of ['', 'Bad Name', 'assets', 'generated', 'certificates']) {
       const invalid = join(fixture, `src/content_${slug}`);
       mkdirSync(invalid);
       const result = build();

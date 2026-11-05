@@ -43,9 +43,4 @@ title: Skills
 | 6 mo | **Git**Lab CI |
 | 1 yr | **Docker**&nbsp;&&nbsp;Kubernetes |
 
-### AI / Data
-
-| Duration | Skill |
-| --- | --- |
-| 3 yrs | Data Engineering |
-| 1 mo | LLM Agents [[certificate link](https://agents-course-unit-1-quiz.hf.space/gradio_api/file=/tmp/gradio/1f3a0f5fed6d7fb727ca0ddd76f7643b088f78f107ec2423db9e717fe49b7fe7/image.webp)] |
+### Certificates [[link-tree](../certificates/)]

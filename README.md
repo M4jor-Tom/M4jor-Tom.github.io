@@ -2,7 +2,8 @@
 
 Edit Markdown in `src/content_*/`, not HTML. Eleventy discovers each résumé
 folder and combines it with the shared `src/resume.njk` layout. One GitHub Pages
-site serves independent résumé URLs and a small link index at `/`.
+site serves independent résumé URLs, a small link index at `/`, and a shared
+certificates link-tree at `/certificates/`.
 
 | Content directory | Web résumé | PDF |
 | --- | --- | --- |
@@ -25,7 +26,7 @@ template edit, or workflow change is needed. Renaming/removing a source director
 removes the old page on the next build and the old PDFs after a successful export.
 
 Names after `content_` must be lowercase letters/digits with `_` or `-` between
-words. `assets` and `generated` are reserved. The spelling is preserved in URLs.
+words. `assets`, `generated` and `certificates` are reserved. The spelling is preserved in URLs.
 Keep the five top-level Markdown files; a missing file fails the build with its
 path. Experience, project, and education entries remain in their subdirectories.
 
@@ -45,6 +46,10 @@ Pages is configured below. These paths are relative to each résumé directory:
 | Work experience | One file per job in `experience/` |
 | Projects | One file per project in `projects/` |
 | Education | One file per qualification in `education/` |
+
+Certificates are shared by all résumés: edit the `certificates:` list at the top
+of `src/certificates.njk` (copy a `name`/`issuer`/`url` entry). Link to the page
+from a résumé's Markdown with `[label](../certificates/)`.
 
 Use `**bold text**`, `[link label](https://example.com)`, normal paragraphs,
 and `- ` for bullet points. No HTML tags or trailing spaces are needed.

@@ -6,8 +6,8 @@ export function discoverResumes(root) {
     .filter(entry => entry.isDirectory() && entry.name.startsWith('content_'))
     .map(entry => {
       const slug = entry.name.slice('content_'.length);
-      if (!/^[a-z0-9]+(?:[_-][a-z0-9]+)*$/.test(slug) || ['assets', 'generated'].includes(slug)) {
-        throw new Error(`Invalid resume directory: src/${entry.name}; use lowercase words separated by _ or -, excluding assets and generated`);
+      if (!/^[a-z0-9]+(?:[_-][a-z0-9]+)*$/.test(slug) || ['assets', 'generated', 'certificates'].includes(slug)) {
+        throw new Error(`Invalid resume directory: src/${entry.name}; use lowercase words separated by _ or -, excluding assets, generated and certificates`);
       }
       return slug;
     }).sort();
