@@ -8,6 +8,22 @@ title: Skills
 | --- | --- |
 | 2 yr | **Domain-driven** dev. |
 | 6 mo | **Spec-driven** dev. |
+| 6 mo | **Test-driven** dev. |
+
+### Backend
+
+| Duration | Skill |
+| --- | --- |
+| 3 yrs | **REST APIs** |
+| 1 yr | **Rust** (I love it) |
+| 6 mo | **Go** |
+| 3 yrs | **Spring-Boot** |
+| 1 yr | **Microservices** |
+| 6 mo | JHipster |
+| 8 mo | Python / FastAPI |
+| 1 yr | C++ |
+| 1.5 yrs | PostgreSQL&nbsp;&&nbsp;MySQL |
+| 1 yr | PHP |
 
 ### Frontend
 
@@ -19,28 +35,13 @@ title: Skills
 | 9 mo | DeckGL |
 | 3 mo | ThreeJS |
 
-### Backend
-
-| Duration | Skill |
-| --- | --- |
-| 1 yr | **Rust** (I love it) |
-| 6 mo | **Go** |
-| 3 yrs | **Java**&nbsp;&&nbsp;**Spring-Boot** |
-| 3 yrs | **REST APIs** |
-| 1 yr | **Microservices** |
-| 6 mo | JHipster |
-| 8 mo | Python |
-| 1 yr | C++ |
-| 1.5 yrs | PostgreSQL&nbsp;&&nbsp;MySQL |
-| 1 yr | PHP |
-
 ### DevOps
 
 | Duration | Skill |
 | --- | --- |
 | 5 yrs | **Git** |
 | 6 mo | **Git**Hub Actions |
-| 6 mo | **Git**Lab CI |
-| 1 yr | **Docker**&nbsp;&&nbsp;Kubernetes |
+| 8 mo | **Git**Lab CI |
+| 1 yr | **Docker** |
 
 ### Certificates [[link-tree](../certificates/)]

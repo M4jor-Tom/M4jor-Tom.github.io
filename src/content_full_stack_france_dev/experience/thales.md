@@ -5,9 +5,7 @@ period: "2022 - now"
 
 **Full-Stack Software Engineer** | **Thales**
 
-- **Spec-driven** and **Domain-driven** development with AI
-- Clarify requirements; develop features with **Go, Java/Spring Boot, Angular and React**.
-- Create tools for dev team in **Rust (+iced), Nix**.
-- Review all **AI-generated code**, simplify complexity and correct code placement.
-- Review technical/functional changes; defend choices with tech lead and maintainers.
+- **Spec-driven**, **Domain-driven** & **Test-driven** development with **and** without AI
+- Develop with **Nix, Rust, Go, Angular, React, Spring Boot, and more**.
+- Code reviewer
 - Ensure **tests unicity**; setup CI to run automated tests

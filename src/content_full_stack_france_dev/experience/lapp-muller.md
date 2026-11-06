@@ -7,9 +7,7 @@ period: "2019 - 2022"
 
 Software developer: JHipster/Spring-Boot/Java & React Product design software
 
-Software developer: WAMP/PHP Create/Read/Update/delete (CRUD) app
-
 ISEN ITII Apprentice at **Lapp Muller**
 
 - Programming a solution for a specific need (designing cables)
-- **Domain-driven** development with JHipster
+- **Domain-driven** development for a JHipster/React/Spring-boot App
